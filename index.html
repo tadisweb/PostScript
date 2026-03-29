@@ -662,17 +662,44 @@
 
             /* ── DRAFTS ── */
             .drafts {
-                padding: 14px 16px 16px;
                 border-top: 1px solid var(--border);
                 background: var(--card);
             }
-            .drafts-label {
-                font-size: 10px;
+            .drafts-head {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 12px 16px;
+                cursor: pointer;
+                user-select: none;
+                background: var(--bg-soft);
+            }
+            .drafts-head:hover {
+                background: var(--bg-muted);
+            }
+            .drafts-title {
+                font-size: 13px;
                 font-weight: 700;
+                color: var(--text-mid);
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+            .drafts-toggle {
+                font-size: 11px;
                 color: var(--text-light);
-                text-transform: uppercase;
-                letter-spacing: 0.8px;
-                margin-bottom: 8px;
+            }
+            .drafts-count {
+                padding: 3px 9px;
+                font-size: 11px;
+                font-weight: 800;
+                background: rgba(127,138,155,.15);
+                color: var(--text-light);
+            }
+            .drafts-body {
+                padding: 14px 16px 16px;
+                display: none;
+                background: var(--card);
             }
             .draft-item {
                 display: flex;
@@ -1380,26 +1407,19 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                     </div>
                 </div>
 
-                <!-- Post Grader -->
-                <div class="grader">
-                    <div class="grader-head" onclick="toggleGrader()">
-                        <div class="grader-title">
-                            <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M4 19.5H20"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M6 16V11"/><path fill="none" stroke="var(--green)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M11 16V7"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M16 16V9"/></svg>Post Grade
-                            <span class="grade-badge gn" id="gradeBadge"
-                                >—</span
-                            >
-                        </div>
-                        <span class="grader-toggle" id="graderToggle"
-                            >▼ Show</span
-                        >
-                    </div>
-                    <div class="grader-body" id="graderBody">
-                        <div class="grade-rows" id="gradeRows"></div>
-                        <div class="grade-tip" id="gradeTip">
-                            Start writing to see your post grade.
-                        </div>
-                    </div>
+                <!-- Action buttons -->
+                <div class="actions">
+                    <button class="btn btn-primary" onclick="copyPost()">
+                        <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><rect fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" x="9" y="9" width="11" height="11"/><rect fill="none" stroke="var(--green)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" x="4" y="4" width="11" height="11"/></svg>Copy to LinkedIn
+                    </button>
+                    <button class="btn btn-secondary" onclick="saveDraft()">
+                        <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M5 4h11l3 3v13H5z"/><path fill="none" stroke="var(--gold)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M8 4v6h8V4"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M9 18h6"/></svg>Save Draft
+                    </button>
+                    <button class="btn btn-ghost" onclick="clearPost()">
+                        <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M4 7h16"/><path fill="none" stroke="var(--red)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M9 7V5h6v2"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M8 7l1 12h6l1-12"/></svg>Clear
+                    </button>
                 </div>
+
 
                 <!-- AI Suggestions toggle -->
                 <div class="ai-row">
@@ -1419,52 +1439,68 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                     <div id="aiItems"></div>
                 </div>
 
-                <!-- Action buttons -->
-                <div class="actions">
-                    <button class="btn btn-primary" onclick="copyPost()">
-                        <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><rect fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" x="9" y="9" width="11" height="11"/><rect fill="none" stroke="var(--green)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" x="4" y="4" width="11" height="11"/></svg>Copy to LinkedIn
-                    </button>
-                    <button class="btn btn-secondary" onclick="saveDraft()">
-                        <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M5 4h11l3 3v13H5z"/><path fill="none" stroke="var(--gold)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M8 4v6h8V4"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M9 18h6"/></svg>Save Draft
-                    </button>
-                    <button class="btn btn-ghost" onclick="clearPost()">
-                        <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M4 7h16"/><path fill="none" stroke="var(--red)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M9 7V5h6v2"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M8 7l1 12h6l1-12"/></svg>Clear
-                    </button>
+
+                <!-- Post Rating -->
+                <div class="grader">
+                    <div class="grader-head" onclick="toggleGrader()">
+                        <div class="grader-title">
+                            <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M4 19.5H20"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M6 16V11"/><path fill="none" stroke="var(--green)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M11 16V7"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M16 16V9"/></svg>Post Rating
+                            <span class="grade-badge gn" id="gradeBadge"
+                                >—</span
+                            >
+                        </div>
+                        <span class="grader-toggle" id="graderToggle"
+                            >▼ Show</span
+                        >
+                    </div>
+                    <div class="grader-body" id="graderBody">
+                        <div class="grade-rows" id="gradeRows"></div>
+                        <div class="grade-tip" id="gradeTip">
+                            Start writing to see your post rating.
+                        </div>
+                    </div>
                 </div>
+
 
                 <!-- Drafts -->
                 <div class="drafts">
-                    <div class="drafts-label">Recent Drafts</div>
-                    <div class="drafts-actions">
-                        <button
-                            class="drafts-btn"
-                            onclick="exportDrafts()"
-                            title="Save drafts as a JSON file in your LinkedIn folder"
-                        >
-                            <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M12 3v11"/><path fill="none" stroke="var(--blue)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M8 10l4 4 4-4"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M5 19h14"/></svg>Export
-                        </button>
-                        <button
-                            class="drafts-btn"
-                            onclick="
-                                document.getElementById('importInput').click()
-                            "
-                            title="Load drafts from a JSON file"
-                        >
-                            <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M12 14V3"/><path fill="none" stroke="var(--blue)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M8 7l4-4 4 4"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M5 19h14"/></svg>Import
-                        </button>
-                        <input
-                            type="file"
-                            id="importInput"
-                            accept=".json"
-                            style="display: none"
-                            onchange="importDrafts(event)"
-                        />
+                    <div class="drafts-head" onclick="toggleDrafts()">
+                        <div class="drafts-title">
+                            <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M5 4h11l3 3v13H5z"/><path fill="none" stroke="var(--blue)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M8 4v6h8V4"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M9 15h6"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M9 18h4"/></svg>Recent Drafts
+                            <span class="drafts-count" id="draftsCount">0</span>
+                        </div>
+                        <span class="drafts-toggle" id="draftsToggle">▼ Show</span>
                     </div>
-                    <div id="draftList">
-                        <span class="drafts-empty"
-                            >No drafts yet — click Save Draft to store
-                            one.</span
-                        >
+                    <div class="drafts-body" id="draftsBody">
+                        <div class="drafts-actions">
+                            <button
+                                class="drafts-btn"
+                                onclick="event.stopPropagation(); exportDrafts()"
+                                title="Save drafts as a JSON file in your LinkedIn folder"
+                            >
+                                <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M12 3v11"/><path fill="none" stroke="var(--blue)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M8 10l4 4 4-4"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M5 19h14"/></svg>Export
+                            </button>
+                            <button
+                                class="drafts-btn"
+                                onclick="event.stopPropagation(); document.getElementById('importInput').click()"
+                                title="Load drafts from a JSON file"
+                            >
+                                <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M12 14V3"/><path fill="none" stroke="var(--blue)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M8 7l4-4 4 4"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M5 19h14"/></svg>Import
+                            </button>
+                            <input
+                                type="file"
+                                id="importInput"
+                                accept=".json"
+                                style="display: none"
+                                onchange="importDrafts(event)"
+                            />
+                        </div>
+                        <div id="draftList">
+                            <span class="drafts-empty"
+                                >No drafts yet — click Save Draft to store
+                                one.</span
+                            >
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2146,6 +2182,7 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
             // ══════════════════════════════════════════════════════
             var drafts = [];
             var graderOpen = false;
+            var draftsOpen = false;
 
             // ══════════════════════════════════════════════════════
             // FORMAT HELPERS (WYSIWYG using execCommand)
@@ -2638,6 +2675,16 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                     : "▼ Show";
             }
 
+            function toggleDrafts() {
+                draftsOpen = !draftsOpen;
+                document.getElementById("draftsBody").style.display = draftsOpen
+                    ? "block"
+                    : "none";
+                document.getElementById("draftsToggle").textContent = draftsOpen
+                    ? "▲ Hide"
+                    : "▼ Show";
+            }
+
             // ══════════════════════════════════════════════════════
             // AI SUGGESTIONS
             // ══════════════════════════════════════════════════════
@@ -3079,6 +3126,7 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
 
             function renderDrafts() {
                 var el = document.getElementById("draftList");
+                document.getElementById("draftsCount").textContent = drafts.length;
                 if (!drafts.length) {
                     el.innerHTML =
                         '<span class="drafts-empty">No drafts yet — click Save Draft to store one.</span>';
