@@ -3040,7 +3040,7 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                             minute: "2-digit",
                         }),
                 });
-                if (drafts.length > 50) drafts.pop();
+                // no cap — unlimited drafts allowed
                 persistDrafts();
                 renderDrafts();
                 showToast("Draft saved ✓");
@@ -3152,7 +3152,7 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                             return !existingIds.has(d.id);
                         });
                         drafts = newOnes.concat(drafts);
-                        if (drafts.length > 50) drafts = drafts.slice(0, 50);
+                        // no cap — unlimited drafts allowed
                         persistDrafts();
                         renderDrafts();
                         showToast(newOnes.length + " draft(s) imported ✓");
