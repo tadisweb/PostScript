@@ -311,6 +311,10 @@
             #editor i {
                 font-style: italic;
             }
+            #editor s,
+            #editor strike {
+                text-decoration: line-through;
+            }
             #editor ul,
             #editor ol {
                 padding-left: 1.5em;
@@ -1305,6 +1309,14 @@
                     >
                         <i>I</i>
                     </button>
+                    <button
+                        class="toolbar-btn"
+                        onmousedown="event.preventDefault()"
+                        onclick="fmt('strike')"
+                        title="Strikethrough"
+                    >
+                        <s>S</s>
+                    </button>
                     <div class="tb-sep"></div>
                     <button
                         class="toolbar-btn"
@@ -1335,9 +1347,17 @@
                         class="toolbar-btn"
                         onmousedown="event.preventDefault()"
                         onclick="stripFormatting()"
-                        title="Remove all bold/italic formatting and convert to plain text"
+                        title="Remove all bold, italic, strikethrough, list formatting and convert to plain text"
                     >
                         ✕ Strip
+                    </button>
+                    <button
+                        class="toolbar-btn"
+                        onmousedown="event.preventDefault()"
+                        onclick="convertImproperUnicodeFormatting()"
+                        title="Convert LinkedIn-style Unicode bold/italic characters into proper Post Script formatting"
+                    >
+                        ↺ Fix Unicode
                     </button>
                     <div class="tb-sep"></div>
 <div class="tpl-wrap">
@@ -1902,6 +1922,12 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                     },
                 );
 
+                out = out.replace(/~~([\s\S]*?)~~/g, function (_, content) {
+                    var idx = segs.length;
+                    segs.push("<s>" + escHtml(content).replace(/\n/g, "<br>") + "</s>");
+                    return "\x01" + idx + "\x01";
+                });
+
                 out = out.replace(/_([^_\n]+)_/g, function (_, content) {
                     var idx = segs.length;
                     segs.push("<em>" + escHtml(content) + "</em>");
@@ -1935,6 +1961,12 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                     },
                 );
 
+                out = out.replace(/~~([\s\S]*?)~~/g, function (_, content) {
+                    var idx = segs.length;
+                    segs.push("<s>" + escHtml(content).replace(/\n/g, "<br>") + "</s>");
+                    return "\x01" + idx + "\x01";
+                });
+
                 out = out.replace(/_([^_\n]+)_/g, function (_, content) {
                     var idx = segs.length;
                     segs.push("<em>" + escHtml(content) + "</em>");
@@ -1948,6 +1980,118 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                 });
 
                 return out;
+            }
+
+            // ══════════════════════════════════════════════════════
+            // FORMAT HELPERS + UNICODE NORMALISATION
+            // ══════════════════════════════════════════════════════
+            var B_REV = {};
+            var I_REV = {};
+            Object.keys(B).forEach(function(k){ B_REV[B[k]] = k; });
+            Object.keys(I).forEach(function(k){ I_REV[I[k]] = k; });
+
+            function getUnicodeStyle(ch) {
+                if (B_REV[ch] !== undefined) return 'bold';
+                if (I_REV[ch] !== undefined) return 'italic';
+                return null;
+            }
+
+            function unicodeToPlain(ch) {
+                if (B_REV[ch] !== undefined) return B_REV[ch];
+                if (I_REV[ch] !== undefined) return I_REV[ch];
+                return ch;
+            }
+
+            function deUnicode(text) {
+                return Array.from(text || '').map(unicodeToPlain).join('');
+            }
+
+            function normalizeUnicodeStyledMarkdown(text) {
+                var chars = Array.from(text || '');
+                var out = '';
+                var i = 0;
+
+                while (i < chars.length) {
+                    var style = getUnicodeStyle(chars[i]);
+                    if (!style) {
+                        out += chars[i];
+                        i++;
+                        continue;
+                    }
+
+                    var run = '';
+                    while (i < chars.length && getUnicodeStyle(chars[i]) === style) {
+                        run += unicodeToPlain(chars[i]);
+                        i++;
+                    }
+
+                    var leading = (run.match(/^\s+/) || [''])[0];
+                    var trailing = (run.match(/\s+$/) || [''])[0];
+                    var core = run.slice(leading.length, run.length - trailing.length);
+
+                    if (!core) {
+                        out += run;
+                    } else if (style === 'bold') {
+                        out += leading + '**' + core + '**' + trailing;
+                    } else if (style === 'italic') {
+                        out += leading + '_' + core + '_' + trailing;
+                    } else {
+                        out += run;
+                    }
+                }
+
+                return out;
+            }
+
+            function editorToMarkdownWithUnicodeFix(node) {
+                return normalizeUnicodeStyledMarkdown(editorToMarkdown(node));
+            }
+
+            function fmt(type) {
+                var el = document.getElementById('editor');
+                el.focus();
+
+                if (type === 'bold') {
+                    document.execCommand('bold', false, null);
+                } else if (type === 'italic') {
+                    document.execCommand('italic', false, null);
+                } else if (type === 'strike') {
+                    document.execCommand('strikeThrough', false, null);
+                } else if (type === 'bullet') {
+                    document.execCommand('insertUnorderedList', false, null);
+                } else if (type === 'number') {
+                    document.execCommand('insertOrderedList', false, null);
+                } else if (type === 'space') {
+                    document.execCommand('insertHTML', false, '<br><br>');
+                }
+                onChange();
+            }
+
+            function convertImproperUnicodeFormatting() {
+                var el = document.getElementById('editor');
+                var text = el.innerText || '';
+                if (!text.trim()) {
+                    showToast('Nothing to fix!');
+                    return;
+                }
+                var fixed = normalizeUnicodeStyledMarkdown(text);
+                if (fixed === text) {
+                    showToast('No improper Unicode formatting found');
+                    return;
+                }
+                el.innerHTML = markdownToEditorHtml(fixed);
+                onChange();
+                showToast('Unicode formatting converted ✓');
+            }
+
+            function stripFormatting() {
+                var el = document.getElementById('editor');
+                var plain = el.innerText || '';
+                plain = Array.from(plain).map(unicodeToPlain).join('');
+                el.innerHTML = escHtml(plain).replace(/\n/g, '<br>');
+                el.focus();
+                onChange();
+                showToast('Formatting stripped ✓');
             }
 
             // ══════════════════════════════════════════════════════
@@ -1971,6 +2115,8 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                         text += "**" + editorToMarkdown(child) + "**";
                     } else if (tag === "EM" || tag === "I") {
                         text += "_" + editorToMarkdown(child) + "_";
+                    } else if (tag === "S" || tag === "STRIKE") {
+                        text += "~~" + editorToMarkdown(child) + "~~";
                     } else if (tag === "BR") {
                         text += "\n";
                     } else if (tag === "DIV" || tag === "P") {
@@ -2008,11 +2154,14 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                         // Inline elements — check for bold/italic via style
                         var fw = child.style && child.style.fontWeight;
                         var fs = child.style && child.style.fontStyle;
+                        var td = child.style && child.style.textDecoration;
                         var inner2 = editorToMarkdown(child);
                         if (fw === "bold" || fw === "700") {
                             text += "**" + inner2 + "**";
                         } else if (fs === "italic") {
                             text += "_" + inner2 + "_";
+                        } else if (td && td.indexOf('line-through') >= 0) {
+                            text += "~~" + inner2 + "~~";
                         } else {
                             text += inner2;
                         }
@@ -2025,7 +2174,7 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
 
             // Get the editor's current text as markdown (replaces ed().value)
             function getEditorText() {
-                var md = editorToMarkdown(document.getElementById("editor"));
+                var md = editorToMarkdownWithUnicodeFix(document.getElementById("editor"));
                 // Trim leading newline that contenteditable sometimes adds
                 md = md.replace(/^\n/, "");
                 // Replace em dashes with en dashes
@@ -2036,14 +2185,12 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
             // ══════════════════════════════════════════════════════
             // DOM → UNICODE (for clipboard copy)
             // ══════════════════════════════════════════════════════
-            function domToUnicode(node, isBold, isItalic) {
+            function domToUnicode(node, isBold, isItalic, isStrike) {
                 var result = "";
                 var children = node.childNodes;
                 for (var i = 0; i < children.length; i++) {
                     var child = children[i];
-                    var tag = child.nodeName
-                        ? child.nodeName.toUpperCase()
-                        : "";
+                    var tag = child.nodeName ? child.nodeName.toUpperCase() : "";
 
                     var bold =
                         isBold ||
@@ -2057,23 +2204,31 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                         tag === "EM" ||
                         tag === "I" ||
                         (child.style && child.style.fontStyle === "italic");
+                    var strike =
+                        isStrike ||
+                        tag === "S" ||
+                        tag === "STRIKE" ||
+                        (child.style && child.style.textDecoration && child.style.textDecoration.indexOf('line-through') >= 0);
 
                     if (child.nodeType === 3) {
-                        var t = child.textContent.replace(/\u2014/g, "\u2013"); // em→en dash
+                        var t = (child.textContent || "").replace(/—/g, "–");
+                        t = deUnicode(t);
                         if (bold) t = toBold(t);
                         else if (italic) t = toItalic(t);
+                        if (strike && t) t = "~~" + t + "~~";
                         result += t;
+                    } else if (tag === "S" || tag === "STRIKE") {
+                        result += domToUnicode(child, isBold, isItalic);
                     } else if (tag === "BR") {
                         result += "\n";
                     } else if (tag === "DIV" || tag === "P") {
-                        var inner = domToUnicode(child, bold, italic);
+                        var inner = domToUnicode(child, bold, italic, strike);
                         result += "\n" + inner;
                     } else if (tag === "UL") {
                         var lis = child.childNodes;
                         for (var j = 0; j < lis.length; j++) {
                             if (lis[j].nodeName.toUpperCase() === "LI") {
-                                result +=
-                                    "\n• " + domToUnicode(lis[j], bold, italic);
+                                result += "\n• " + domToUnicode(lis[j], bold, italic, strike);
                             }
                         }
                     } else if (tag === "OL") {
@@ -2081,17 +2236,13 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                         var n = 1;
                         for (var j2 = 0; j2 < lis2.length; j2++) {
                             if (lis2[j2].nodeName.toUpperCase() === "LI") {
-                                result +=
-                                    "\n" +
-                                    n++ +
-                                    ". " +
-                                    domToUnicode(lis2[j2], bold, italic);
+                                result += "\n" + n++ + ". " + domToUnicode(lis2[j2], bold, italic, strike);
                             }
                         }
                     } else if (tag === "LI") {
-                        result += domToUnicode(child, bold, italic);
+                        result += domToUnicode(child, bold, italic, strike);
                     } else {
-                        result += domToUnicode(child, bold, italic);
+                        result += domToUnicode(child, bold, italic, strike);
                     }
                 }
                 return result;
@@ -2105,19 +2256,17 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                 var children = node.childNodes;
                 for (var i = 0; i < children.length; i++) {
                     var child = children[i];
-                    var tag = child.nodeName
-                        ? child.nodeName.toUpperCase()
-                        : "";
+                    var tag = child.nodeName ? child.nodeName.toUpperCase() : "";
 
                     if (child.nodeType === 3) {
                         result += escHtml(child.textContent);
                     } else if (tag === "STRONG" || tag === "B") {
-                        result +=
-                            "<strong>" + extractCleanHtml(child) + "</strong>";
+                        result += "<strong>" + extractCleanHtml(child) + "</strong>";
                     } else if (tag === "EM" || tag === "I") {
                         result += "<em>" + extractCleanHtml(child) + "</em>";
+                    } else if (tag === "S" || tag === "STRIKE") {
+                        result += "<s>" + extractCleanHtml(child) + "</s>";
                     } else if (tag === "U") {
-                        // Drop underline (not supported on LinkedIn)
                         result += extractCleanHtml(child);
                     } else if (tag === "BR") {
                         result += "<br>";
@@ -2129,295 +2278,39 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                     } else if (tag === "UL") {
                         var lis = child.querySelectorAll("li");
                         lis.forEach(function (li) {
-                            result +=
-                                "• " +
-                                escHtml(li.innerText || li.textContent) +
-                                "<br>";
+                            result += "• " + escHtml(li.innerText || li.textContent) + "<br>";
                         });
                     } else if (tag === "OL") {
                         var lis2 = child.querySelectorAll("li");
                         var n = 1;
                         lis2.forEach(function (li) {
-                            result +=
-                                n++ +
-                                ". " +
-                                escHtml(li.innerText || li.textContent) +
-                                "<br>";
+                            result += n++ + ". " + escHtml(li.innerText || li.textContent) + "<br>";
                         });
                     } else if (tag === "SPAN") {
-                        // Preserve inline bold/italic from style
                         var fw = child.style && child.style.fontWeight;
                         var fs = child.style && child.style.fontStyle;
+                        var td = child.style && child.style.textDecoration;
                         var inner2 = extractCleanHtml(child);
                         if (fw === "bold" || fw === "700") {
                             result += "<strong>" + inner2 + "</strong>";
                         } else if (fs === "italic") {
                             result += "<em>" + inner2 + "</em>";
+                        } else if (td && td.indexOf('line-through') >= 0) {
+                            result += "<s>" + inner2 + "</s>";
                         } else {
                             result += inner2;
                         }
-                    } else if (
-                        ["H1", "H2", "H3", "H4", "H5", "H6"].indexOf(tag) >= 0
-                    ) {
-                        result +=
-                            "<strong>" +
-                            extractCleanHtml(child) +
-                            "</strong><br>";
+                    } else if (["H1", "H2", "H3", "H4", "H5", "H6"].indexOf(tag) >= 0) {
+                        result += "<strong>" + extractCleanHtml(child) + "</strong><br>";
                     } else if (tag === "A") {
-                        // Keep link text, drop the href (LinkedIn uses its own link shortener)
                         result += extractCleanHtml(child);
-                    } else if (
-                        ["STYLE", "SCRIPT", "META", "HEAD"].indexOf(tag) >= 0
-                    ) {
-                        // Strip
+                    } else if (["STYLE", "SCRIPT", "META", "HEAD"].indexOf(tag) >= 0) {
                     } else {
                         result += extractCleanHtml(child);
                     }
                 }
                 return result;
             }
-
-            // ══════════════════════════════════════════════════════
-            // STATE
-            // ══════════════════════════════════════════════════════
-            var drafts = [];
-            var graderOpen = false;
-            var draftsOpen = false;
-
-            // ══════════════════════════════════════════════════════
-            // FORMAT HELPERS (WYSIWYG using execCommand)
-            // ══════════════════════════════════════════════════════
-            function fmt(type) {
-                var el = document.getElementById("editor");
-                el.focus();
-
-                if (type === "bold") {
-                    document.execCommand("bold", false, null);
-                } else if (type === "italic") {
-                    document.execCommand("italic", false, null);
-                } else if (type === "bullet") {
-                    document.execCommand("insertUnorderedList", false, null);
-                } else if (type === "number") {
-                    document.execCommand("insertOrderedList", false, null);
-                } else if (type === "space") {
-                    document.execCommand("insertHTML", false, "<br><br>");
-                }
-                onChange();
-            }
-
-            // Build reverse lookup: Unicode bold/italic char → plain ASCII
-            // This runs once and is reused by stripFormatting
-            var _unicodeReverseMap = (function() {
-                var map = {};
-                Object.keys(B).forEach(function(k) { map[B[k]] = k; });
-                Object.keys(I).forEach(function(k) { map[I[k]] = k; });
-                return map;
-            })();
-
-            function deUnicode(text) {
-                return Array.from(text).map(function(c) {
-                    return _unicodeReverseMap[c] !== undefined ? _unicodeReverseMap[c] : c;
-                }).join('');
-            }
-
-            function stripFormatting() {
-                var el = document.getElementById("editor");
-                // 1. Get plain text (removes <strong>, <em>, list tags etc.)
-                var plain = el.innerText || "";
-                // 2. Convert any Unicode bold/italic chars (𝗹𝗶𝗸𝗲 𝘁𝗵𝗶𝘀) back to plain ASCII
-                plain = deUnicode(plain);
-                // 3. Re-render as clean plain text
-                el.innerHTML = escHtml(plain).replace(/\n/g, "<br>");
-                // Put cursor at end
-                var range = document.createRange();
-                var sel = window.getSelection();
-                range.selectNodeContents(el);
-                range.collapse(false);
-                sel.removeAllRanges();
-                sel.addRange(range);
-                el.focus();
-                onChange();
-                showToast("Formatting stripped ✓");
-            }
-
-            function insertEmoji(emoji) {
-                var el = document.getElementById("editor");
-                el.focus();
-                document.execCommand("insertText", false, emoji);
-                onChange();
-            }
-
-            // ══════════════════════════════════════════════════════
-            // EMOJI PANEL (removed from UI — users can use keyboard emoji)
-            // ══════════════════════════════════════════════════════
-            function toggleEmoji() { return; }
-
-            // ══════════════════════════════════════════════════════
-            // TEMPLATES
-            // ══════════════════════════════════════════════════════
-            var TEMPLATES = {
-                hooks: [
-                    {
-                        title: "The Counterintuitive",
-                        preview: "Most leaders think X. They're wrong.",
-                        text: "Most **[role]s** think **[common belief]**.\n\nThey're wrong.\n\nHere's what actually moves the needle:\n\n",
-                    },
-                    {
-                        title: "The Number Hook",
-                        preview: "X things I wish I knew before...",
-                        text: "**[X] things** I wish I knew before stepping into a leadership role:\n\n1. \n2. \n3. \n4. \n\n",
-                    },
-                    {
-                        title: "The Question Hook",
-                        preview: "What separates the top 1%...",
-                        text: "What separates the **top 1% of [leaders/sellers]** from everyone else?\n\nIt's not talent. It's not experience.\n\nIt's this:\n\n",
-                    },
-                    {
-                        title: "The Story Arc",
-                        preview: "X years ago... Today... Here's what changed.",
-                        text: "**[X] years ago**, I was [struggling with problem].\n\nToday, [outcome / transformation].\n\nHere's what changed everything:\n\n",
-                    },
-                    {
-                        title: "The Bold Declaration",
-                        preview: "The future of [X] is here.",
-                        text: "The **future of [sales / marketing / leadership]** is here.\n\nAnd most people aren't ready for it.\n\nHere's what I'm seeing on the ground:\n\n",
-                    },
-                ],
-                ctas: [
-                    {
-                        title: "Discussion Starter",
-                        preview: "What's your take? Drop it below 👇",
-                        text: "\n\nWhat's your take? Drop it in the comments 👇",
-                    },
-                    {
-                        title: "Follow CTA",
-                        preview: "Follow me for more on...",
-                        text: "\n\nFollow me for more on **leadership, next-gen sales and marketing mastery**.",
-                    },
-                    {
-                        title: "Repost CTA",
-                        preview: "If this resonated, repost ♻️",
-                        text: "\n\nIf this resonated, repost it to someone who needs to hear it ♻️",
-                    },
-                    {
-                        title: "Tag Someone",
-                        preview: "Tag a leader who embodies this 👇",
-                        text: "\n\nTag a **leader** who embodies this 👇",
-                    },
-                    {
-                        title: "Question Close",
-                        preview: "I'd love your perspective...",
-                        text: "\n\nI'd love your perspective — what has your experience been with this?",
-                    },
-                ],
-                structures: [
-                    {
-                        title: "Lesson Learned",
-                        preview: "Full story + lesson format",
-                        text: "**I learned a hard lesson about [topic] last [timeframe].**\n\nHere's what happened:\n\n[Brief story – 2-3 lines]\n\nThe result?\n\n[Outcome]\n\nWhat this taught me:\n\n• [Lesson 1]\n• [Lesson 2]\n• [Lesson 3]\n\nThe biggest shift: **[key insight]**\n\nWhat lesson has shaped your approach to [topic]? 👇",
-                    },
-                    {
-                        title: "Myth vs Reality",
-                        preview: "❌ Myth: X  ✅ Reality: Y",
-                        text: "**The biggest myth in [sales / leadership / marketing]:**\n\n❌ _Myth: [common belief]_\n\n✅ **Reality: [truth]**\n\nHere's why this matters:\n\n[Explanation – 2-3 lines]\n\nThe leaders I admire most figured this out early.\n\nWhich side of this have you been on? 👇",
-                    },
-                    {
-                        title: "The Framework",
-                        preview: "Share a step-by-step framework",
-                        text: "**The [Name] Framework – how I [achieve result]:**\n\n🔑 **Step 1:** [Action]\n→ [Why it works]\n\n🔑 **Step 2:** [Action]\n→ [Why it works]\n\n🔑 **Step 3:** [Action]\n→ [Why it works]\n\nThe core principle: **[key insight]**\n\nSave this for your next [situation] 📌",
-                    },
-                    {
-                        title: "The Hot Take",
-                        preview: "Controversial opinion format",
-                        text: "**Hot take: [bold statement about leadership / sales / marketing]**\n\nI know this is controversial.\n\nBut here's what the data actually shows:\n\n[Evidence / experience 1]\n[Evidence / experience 2]\n[Evidence / experience 3]\n\nThe uncomfortable truth: **[conclusion]**\n\nAgree or disagree? Let's debate 👇",
-                    },
-                ],
-            };
-
-            (function initTpl() {
-                var menu = document.getElementById("tplMenu");
-                var html = "";
-
-                function addSection(label, key, type) {
-                    html +=
-                        '<div class="tpl-section-title">' + label + "</div>";
-                    TEMPLATES[key].forEach(function (t, i) {
-                        html +=
-                            '<div class="tpl-item" onclick="insertTpl(\'' +
-                            type +
-                            "'," +
-                            i +
-                            ')">' +
-                            '<div class="tpl-title">' +
-                            t.title +
-                            "</div>" +
-                            '<div class="tpl-preview">' +
-                            escHtml(t.preview) +
-                            "</div>" +
-                            "</div>";
-                    });
-                }
-                addSection("🪝 Hooks — Openers", "hooks", "hook");
-                addSection("🎯 CTAs — Closers", "ctas", "cta");
-                addSection("📐 Full Structures", "structures", "structure");
-                menu.innerHTML = html;
-            })();
-
-            function toggleTpl() {
-                document.getElementById("tplMenu").classList.toggle("open");
-
-            }
-
-            function insertTpl(type, idx) {
-                var map = {
-                    hook: "hooks",
-                    cta: "ctas",
-                    structure: "structures",
-                };
-                var t = TEMPLATES[map[type]][idx];
-                var el = document.getElementById("editor");
-                el.focus();
-
-                var currentText = getEditorText().trim();
-
-                if (type === "cta") {
-                    // Append CTA to end
-                    document.execCommand(
-                        "insertHTML",
-                        false,
-                        "<br><br>" +
-                            markdownToEditorHtml(t.text.replace(/^\n+/, "")),
-                    );
-                } else if (type === "hook") {
-                    if (!currentText) {
-                        el.innerHTML = markdownToEditorHtml(t.text);
-                    } else {
-                        document.execCommand(
-                            "insertHTML",
-                            false,
-                            markdownToEditorHtml(t.text),
-                        );
-                    }
-                } else {
-                    if (!currentText) {
-                        el.innerHTML = markdownToEditorHtml(t.text);
-                    } else if (
-                        confirm("Replace current content with this template?")
-                    ) {
-                        el.innerHTML = markdownToEditorHtml(t.text);
-                    }
-                }
-
-                document.getElementById("tplMenu").classList.remove("open");
-                el.focus();
-                onChange();
-            }
-
-            // Close menus on outside click
-            document.addEventListener("click", function (ev) {
-                if (!ev.target.closest(".tpl-wrap"))
-                    document.getElementById("tplMenu").classList.remove("open");
-            });
 
             // ══════════════════════════════════════════════════════
             // PASTE HANDLER — clean Word/browser formatting
@@ -2665,25 +2558,28 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                 document.getElementById("gradeTip").textContent = g.tip;
             }
 
-            function toggleGrader() {
-                graderOpen = !graderOpen;
-                document.getElementById("graderBody").style.display = graderOpen
-                    ? "block"
-                    : "none";
-                document.getElementById("graderToggle").textContent = graderOpen
-                    ? "▲ Hide"
-                    : "▼ Show";
+            function toggleGrader(forceState) {
+                graderOpen = typeof forceState === "boolean" ? forceState : !graderOpen;
+                var body = document.getElementById("graderBody");
+                var toggle = document.getElementById("graderToggle");
+                if (body) body.style.display = graderOpen ? "block" : "none";
+                if (toggle) toggle.textContent = graderOpen ? "▲ Hide" : "▼ Show";
             }
 
-            function toggleDrafts() {
-                draftsOpen = !draftsOpen;
-                document.getElementById("draftsBody").style.display = draftsOpen
-                    ? "block"
-                    : "none";
-                document.getElementById("draftsToggle").textContent = draftsOpen
-                    ? "▲ Hide"
-                    : "▼ Show";
+            function toggleDrafts(forceState) {
+                draftsOpen = typeof forceState === "boolean" ? forceState : !draftsOpen;
+                var body = document.getElementById("draftsBody");
+                var toggle = document.getElementById("draftsToggle");
+                if (body) body.style.display = draftsOpen ? "block" : "none";
+                if (toggle) toggle.textContent = draftsOpen ? "▲ Hide" : "▼ Show";
             }
+
+            // ══════════════════════════════════════════════════════
+            // STATE
+            // ══════════════════════════════════════════════════════
+            var drafts = [];
+            var graderOpen = false;
+            var draftsOpen = false;
 
             // ══════════════════════════════════════════════════════
             // AI SUGGESTIONS
@@ -2864,6 +2760,8 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                             "</strong>";
                     } else if (tag === "EM" || tag === "I") {
                         result += "<em>" + sanitizeForPreview(child) + "</em>";
+                    } else if (tag === "S" || tag === "STRIKE") {
+                        result += "<s>" + sanitizeForPreview(child) + "</s>";
                     } else if (tag === "BR") {
                         result += "<br>";
                     } else if (tag === "DIV" || tag === "P") {
@@ -2898,10 +2796,13 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                         var fw = child.style && child.style.fontWeight;
                         var fs = child.style && child.style.fontStyle;
                         var inner2 = sanitizeForPreview(child);
+                        var td = child.style && child.style.textDecoration;
                         if (fw === "bold" || fw === "700") {
                             result += "<strong>" + inner2 + "</strong>";
                         } else if (fs === "italic") {
                             result += "<em>" + inner2 + "</em>";
+                        } else if (td && td.indexOf('line-through') >= 0) {
+                            result += "<s>" + inner2 + "</s>";
                         } else {
                             result += inner2;
                         }
@@ -3592,6 +3493,7 @@ ${postText}`;
                     var icon = VARIANT_ICONS[v.style] || '✨';
                     var previewHtml = escHtml(v.post)
                         .replace(/\*\*([\s\S]*?)\*\*/g, '<strong>$1</strong>')
+                        .replace(/~~([\s\S]*?)~~/g, '<s>$1</s>')
                         .replace(/_([^_\n]+)_/g, '<em>$1</em>')
                         .replace(/\n/g, '<br>');
                     html += '<div class="ai-variant-card">' +
@@ -3660,11 +3562,49 @@ ${postText}`;
             }
 
             // ── INIT ──
+            function bindAccordionHeads() {
+                var graderHead = document.querySelector('.grader-head');
+                var draftsHead = document.querySelector('.drafts-head');
+                if (graderHead) {
+                    graderHead.onclick = function (e) {
+                        e.preventDefault();
+                        toggleGrader();
+                    };
+                }
+                if (draftsHead) {
+                    draftsHead.onclick = function (e) {
+                        e.preventDefault();
+                        toggleDrafts();
+                    };
+                }
+            }
+
+            function rehydrateVisibleMarkdownInEditor() {
+                try {
+                    var el = document.getElementById('editor');
+                    if (!el) return;
+                    var html = el.innerHTML || '';
+                    var text = el.innerText || '';
+                    var hasRichFormatting = /<(strong|b|em|i|s|strike)/i.test(html);
+                    var looksLikeMarkdown = /(\*\*[^\n]+\*\*)|(~~[^\n]+~~)|(_[^_\n]+_)/.test(text);
+                    if (!hasRichFormatting && looksLikeMarkdown) {
+                        el.innerHTML = markdownToEditorHtml(text);
+                    }
+                } catch (e) {}
+            }
+
+            window.addEventListener('pageshow', function () {
+                rehydrateVisibleMarkdownInEditor();
+                onChange();
+            });
+
             loadPersistedDrafts();
             loadPersistedEditorState();
+            rehydrateVisibleMarkdownInEditor();
             loadPersistedAvatar();
             updateRewriteProviderLabel();
             renderDrafts();
+            bindAccordionHeads();
             onChange();
         </script>
     </body>
