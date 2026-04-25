@@ -4,9 +4,11 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Post Script — The editor LinkedIn forgot</title>
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
         <style>
-
             *,
             *::before,
             *::after {
@@ -15,24 +17,31 @@
                 padding: 0;
             }
 
-            :root{
-                --bg:#07111F;
-                --bg-soft:#0A1526;
-                --bg-muted:#0D182B;
-                --card:#091423;
-                --border:#1A2940;
-                --border-light:#132036;
-                --text:#F3F4F6;
-                --text-mid:#B3BED0;
-                --text-light:#7F8A9B;
-                --green:#22C55E;
-                --red:#EF4444;
-                --gold:#E6B85C;
-                --blue:#1E6BD6;
+            :root {
+                --bg: #07111f;
+                --bg-soft: #0a1526;
+                --bg-muted: #0d182b;
+                --card: #091423;
+                --border: #1a2940;
+                --border-light: #132036;
+                --text: #f3f4f6;
+                --text-mid: #b3bed0;
+                --text-light: #7f8a9b;
+                --green: #22c55e;
+                --red: #ef4444;
+                --gold: #e6b85c;
+                --blue: #1e6bd6;
             }
 
             body {
-                font-family:'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+                font-family:
+                    "Plus Jakarta Sans",
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    Roboto,
+                    Arial,
+                    sans-serif;
                 background: var(--bg);
                 min-height: 100vh;
                 color: var(--text);
@@ -92,7 +101,7 @@
             /* ── LAYOUT ── */
             .main {
                 display: grid;
-                grid-template-columns: minmax(0,1.08fr) minmax(420px,0.92fr);
+                grid-template-columns: minmax(0, 1.08fr) minmax(420px, 0.92fr);
                 gap: 12px;
                 max-width: 1340px;
                 margin: 0 auto;
@@ -101,13 +110,13 @@
                 width: 100%;
             }
             @media (max-width: 1080px) {
-                .header{
-                    grid-template-columns:1fr;
-                    align-items:start;
+                .header {
+                    grid-template-columns: 1fr;
+                    align-items: start;
                 }
-                .header-tagline{
-                    text-align:left;
-                    max-width:none;
+                .header-tagline {
+                    text-align: left;
+                    max-width: none;
                 }
                 .main {
                     grid-template-columns: 1fr;
@@ -243,7 +252,7 @@
                 padding: 8px;
                 max-height: 420px;
                 overflow-y: auto;
-                box-shadow: 0 18px 38px rgba(0,0,0,.28);
+                box-shadow: 0 18px 38px rgba(0, 0, 0, 0.28);
             }
             .tpl-menu.open {
                 display: block;
@@ -291,14 +300,14 @@
                 line-height: 1.8;
                 font-family: inherit;
                 color: #111827;
-                background: #FFFFFF;
+                background: #ffffff;
                 overflow-y: auto;
                 flex: 1;
             }
             #editor:empty::before,
             #editor[data-placeholder-visible]::before {
                 content: attr(data-placeholder);
-                color: #94A3B8;
+                color: #94a3b8;
                 pointer-events: none;
                 display: block;
                 white-space: pre-line;
@@ -363,7 +372,9 @@
             .char-bar {
                 height: 100%;
                 background: var(--green);
-                transition: width 0.2s, background 0.2s;
+                transition:
+                    width 0.2s,
+                    background 0.2s;
             }
             .unicode-note {
                 font-size: 11px;
@@ -403,11 +414,26 @@
                 font-size: 11px;
                 font-weight: 800;
             }
-            .ga { background: rgba(34,197,94,.18); color: #86efac; }
-            .gb { background: rgba(30,107,214,.18); color: #93c5fd; }
-            .gc { background: rgba(230,184,92,.18); color: #fcd34d; }
-            .gd { background: rgba(239,68,68,.18); color: #fca5a5; }
-            .gn { background: rgba(127,138,155,.15); color: var(--text-light); }
+            .ga {
+                background: rgba(34, 197, 94, 0.18);
+                color: #86efac;
+            }
+            .gb {
+                background: rgba(30, 107, 214, 0.18);
+                color: #93c5fd;
+            }
+            .gc {
+                background: rgba(230, 184, 92, 0.18);
+                color: #fcd34d;
+            }
+            .gd {
+                background: rgba(239, 68, 68, 0.18);
+                color: #fca5a5;
+            }
+            .gn {
+                background: rgba(127, 138, 155, 0.15);
+                color: var(--text-light);
+            }
             .grader-toggle {
                 font-size: 11px;
                 color: var(--text-light);
@@ -457,7 +483,9 @@
                 justify-content: center;
                 cursor: default;
                 line-height: 1;
-                transition: background 0.1s, color 0.1s;
+                transition:
+                    background 0.1s,
+                    color 0.1s;
                 user-select: none;
             }
             .metric-info:hover .metric-info-icon {
@@ -477,7 +505,7 @@
                 padding: 13px 15px;
                 font-size: 12px;
                 line-height: 1.6;
-                box-shadow: 0 12px 28px rgba(0,0,0,.28);
+                box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
                 z-index: 500;
                 pointer-events: none;
             }
@@ -485,7 +513,9 @@
                 left: auto;
                 right: 20px;
             }
-            .metric-info:hover .metric-tooltip { display: block; }
+            .metric-info:hover .metric-tooltip {
+                display: block;
+            }
             .metric-tooltip-title {
                 font-size: 11px;
                 font-weight: 700;
@@ -551,7 +581,9 @@
                 height: 20px;
                 flex-shrink: 0;
             }
-            .toggle input { display: none; }
+            .toggle input {
+                display: none;
+            }
             .toggle-track {
                 position: absolute;
                 inset: 0;
@@ -568,7 +600,7 @@
                 top: 2px;
                 left: 2px;
                 transition: transform 0.2s;
-                box-shadow: 0 1px 3px rgba(0,0,0,.2);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
             }
             .toggle input:checked + .toggle-track {
                 background: var(--green);
@@ -697,7 +729,7 @@
                 padding: 3px 9px;
                 font-size: 11px;
                 font-weight: 800;
-                background: rgba(127,138,155,.15);
+                background: rgba(127, 138, 155, 0.15);
                 color: var(--text-light);
             }
             .drafts-body {
@@ -820,11 +852,15 @@
             /* ── LINKEDIN CARD ── */
             .li-card {
                 background: white;
-                box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06);
+                box-shadow:
+                    0 0 0 1px rgba(0, 0, 0, 0.12),
+                    0 2px 6px rgba(0, 0, 0, 0.06);
                 overflow: hidden;
                 max-width: 554px;
                 margin: 0 auto;
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    Arial, sans-serif;
                 transition: max-width 0.25s;
             }
             .li-card.mobile {
@@ -880,7 +916,9 @@
                 font-weight: 700;
                 font-size: 18px;
             }
-            .li-author { flex: 1; }
+            .li-author {
+                flex: 1;
+            }
             .li-name {
                 font-size: 14px;
                 font-weight: 600;
@@ -976,7 +1014,7 @@
                 right: 20px;
                 background: #091423;
                 color: var(--text);
-                border:1px solid var(--border);
+                border: 1px solid var(--border);
                 padding: 10px 18px;
                 font-size: 13px;
                 font-weight: 600;
@@ -991,24 +1029,33 @@
                 opacity: 1;
             }
 
-            .tpl-menu::-webkit-scrollbar { width: 6px; }
-            .tpl-menu::-webkit-scrollbar-track { background: transparent; }
-            .tpl-menu::-webkit-scrollbar-thumb { background: var(--border); }
+            .tpl-menu::-webkit-scrollbar {
+                width: 6px;
+            }
+            .tpl-menu::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            .tpl-menu::-webkit-scrollbar-thumb {
+                background: var(--border);
+            }
 
             /* ── AI REWRITE MODAL ── */
             .ai-rewrite-overlay {
-                position: fixed; inset: 0;
-                background: rgba(0,0,0,0.62);
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.62);
                 z-index: 1000;
                 display: none;
                 align-items: center;
                 justify-content: center;
                 padding: 16px;
             }
-            .ai-rewrite-overlay.open { display: flex; }
+            .ai-rewrite-overlay.open {
+                display: flex;
+            }
             .ai-rewrite-panel {
                 background: var(--card);
-                border:1px solid var(--border);
+                border: 1px solid var(--border);
                 width: 100%;
                 max-width: 980px;
                 max-height: 90vh;
@@ -1043,18 +1090,27 @@
                 cursor: pointer;
                 text-decoration: underline;
             }
-            .ai-key-link:hover { opacity: 0.8; }
+            .ai-key-link:hover {
+                opacity: 0.8;
+            }
             .ai-rewrite-close-btn {
-                width: 32px; height: 32px;
-                border: none; background: none;
+                width: 32px;
+                height: 32px;
+                border: none;
+                background: none;
                 cursor: pointer;
                 font-size: 20px;
                 color: var(--text-light);
-                display: flex; align-items: center; justify-content: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 line-height: 1;
                 flex-shrink: 0;
             }
-            .ai-rewrite-close-btn:hover { background: var(--bg-muted); color: var(--text); }
+            .ai-rewrite-close-btn:hover {
+                background: var(--bg-muted);
+                color: var(--text);
+            }
             .ai-rewrite-body {
                 overflow-y: auto;
                 padding: 20px;
@@ -1084,20 +1140,27 @@
                 margin-top: 16px;
             }
             .spinner {
-                width: 34px; height: 34px;
+                width: 34px;
+                height: 34px;
                 border: 3px solid var(--border);
                 border-top-color: var(--green);
                 border-radius: 50%;
                 animation: spin 0.75s linear infinite;
             }
-            @keyframes spin { to { transform: rotate(360deg); } }
+            @keyframes spin {
+                to {
+                    transform: rotate(360deg);
+                }
+            }
             .ai-variants-grid {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 gap: 14px;
             }
             @media (max-width: 680px) {
-                .ai-variants-grid { grid-template-columns: 1fr; }
+                .ai-variants-grid {
+                    grid-template-columns: 1fr;
+                }
             }
             .ai-variant-card {
                 border: 1px solid var(--border);
@@ -1105,7 +1168,9 @@
                 display: flex;
                 flex-direction: column;
                 gap: 10px;
-                transition: border-color 0.15s, background 0.15s;
+                transition:
+                    border-color 0.15s,
+                    background 0.15s;
                 background: var(--bg-soft);
             }
             .ai-variant-card:hover {
@@ -1128,7 +1193,7 @@
                 line-height: 1.7;
                 color: var(--text-mid);
                 background: var(--card);
-                border:1px solid var(--border);
+                border: 1px solid var(--border);
                 padding: 10px 12px;
                 max-height: 300px;
                 overflow-y: auto;
@@ -1143,18 +1208,21 @@
 
             /* API Key Modal */
             .api-key-overlay {
-                position: fixed; inset: 0;
-                background: rgba(0,0,0,0.5);
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.5);
                 z-index: 1100;
                 display: none;
                 align-items: center;
                 justify-content: center;
                 padding: 16px;
             }
-            .api-key-overlay.open { display: flex; }
+            .api-key-overlay.open {
+                display: flex;
+            }
             .api-key-panel {
                 background: var(--card);
-                border:1px solid var(--border);
+                border: 1px solid var(--border);
                 width: 100%;
                 max-width: 440px;
                 padding: 24px;
@@ -1183,15 +1251,22 @@
                 color: var(--text);
                 box-sizing: border-box;
             }
-            .api-key-input:focus { border-color: var(--blue); }
+            .api-key-input:focus {
+                border-color: var(--blue);
+            }
             .api-key-help {
                 font-size: 11px;
                 color: var(--text-light);
                 margin-bottom: 20px;
                 line-height: 1.5;
             }
-            .api-key-help a { color: var(--blue); text-decoration: none; }
-            .api-key-help a:hover { text-decoration: underline; }
+            .api-key-help a {
+                color: var(--blue);
+                text-decoration: none;
+            }
+            .api-key-help a:hover {
+                text-decoration: underline;
+            }
             .api-key-actions {
                 display: flex;
                 gap: 8px;
@@ -1225,7 +1300,9 @@
                 text-decoration: none;
                 font-weight: 700;
             }
-            .footer-brand a:hover { color: var(--text); }
+            .footer-brand a:hover {
+                color: var(--text);
+            }
             .footer-tagline {
                 flex: 1;
                 font-style: italic;
@@ -1236,29 +1313,81 @@
                 white-space: nowrap;
                 color: var(--text-light);
             }
-
         </style>
+        <!-- Cloudflare Web Analytics -->
+        <script
+            defer
+            src="https://static.cloudflareinsights.com/beacon.min.js"
+            data-cf-beacon='{"token": "b37a29beae364749a0ac2dc1422cb005"}'
+        ></script>
+        <!-- End Cloudflare Web Analytics -->
+        <!-- Clarity Web Analytics -->
+        <script type="text/javascript">
+            (function (c, l, a, r, i, t, y) {
+                c[a] =
+                    c[a] ||
+                    function () {
+                        (c[a].q = c[a].q || []).push(arguments);
+                    };
+                t = l.createElement(r);
+                t.async = 1;
+                t.src = "https://www.clarity.ms/tag/" + i;
+                y = l.getElementsByTagName(r)[0];
+                y.parentNode.insertBefore(t, y);
+            })(window, document, "clarity", "script", "w3edl7tn2t");
+        </script>
+        <!-- End Clarity Web Analytics -->
     </head>
     <body>
         <header class="header">
             <div class="header-title">
                 <div class="header-subtitle">The editor LinkedIn forgot.</div>
-                <div style="display:flex;align-items:center;gap:14px;">
+                <div style="display: flex; align-items: center; gap: 14px">
                     <div class="header-logo">
-                        <svg width="52" height="52" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
-                            <rect x="1" y="1" width="22" height="22" rx="5" fill="#0D182B" stroke="#1A2940" stroke-width="0.5"/>
-                            <g stroke="rgba(255,255,255,0.6)" stroke-width="1.8" stroke-linecap="round">
-                                <line x1="6" y1="8" x2="18" y2="8"/>
-                                <line x1="6" y1="11" x2="16" y2="11"/>
-                                <line x1="6" y1="14" x2="14" y2="14"/>
+                        <svg
+                            width="52"
+                            height="52"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            style="flex-shrink: 0"
+                        >
+                            <rect
+                                x="1"
+                                y="1"
+                                width="22"
+                                height="22"
+                                rx="5"
+                                fill="#0D182B"
+                                stroke="#1A2940"
+                                stroke-width="0.5"
+                            />
+                            <g
+                                stroke="rgba(255,255,255,0.6)"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                            >
+                                <line x1="6" y1="8" x2="18" y2="8" />
+                                <line x1="6" y1="11" x2="16" y2="11" />
+                                <line x1="6" y1="14" x2="14" y2="14" />
                             </g>
-                            <line x1="6" y1="17" x2="18" y2="17" stroke="#1E6BD6" stroke-width="2" stroke-linecap="round"/>
+                            <line
+                                x1="6"
+                                y1="17"
+                                x2="18"
+                                y2="17"
+                                stroke="#1E6BD6"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                            />
                         </svg>
                     </div>
                     <h1>Post Script</h1>
                 </div>
             </div>
-            <div class="header-tagline">Format, grade and refine your LinkedIn posts before you publish.</div>
+            <div class="header-tagline">
+                Format, grade and refine your LinkedIn posts before you publish.
+            </div>
         </header>
 
         <main class="main">
@@ -1266,7 +1395,31 @@
        LEFT: EDITOR PANEL
   ══════════════════════════════════════ -->
             <div class="panel">
-                <div class="panel-header"><svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M4 19.5h5.5"/><path fill="none" stroke="var(--green)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M14.7 4.3l5 5L10 19H5v-5z"/></svg>Editor</div>
+                <div class="panel-header">
+                    <svg
+                        class="ui-icon"
+                        viewBox="0 0 24 24"
+                        width="16"
+                        height="16"
+                    >
+                        <path
+                            fill="none"
+                            stroke="var(--text-mid)"
+                            stroke-width="1.9"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M4 19.5h5.5"
+                        />
+                        <path
+                            fill="none"
+                            stroke="var(--green)"
+                            stroke-width="1.9"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M14.7 4.3l5 5L10 19H5v-5z"
+                        /></svg
+                    >Editor
+                </div>
 
                 <!-- Toolbar -->
                 <div class="toolbar">
@@ -1360,13 +1513,46 @@
                         ↺ Fix Unicode
                     </button>
                     <div class="tb-sep"></div>
-<div class="tpl-wrap">
+                    <div class="tpl-wrap">
                         <button
                             class="toolbar-btn"
                             onmousedown="event.preventDefault()"
                             onclick="toggleTpl()"
                         >
-                            <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><rect fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" x="4" y="5" width="16" height="14"/><path fill="none" stroke="var(--gold)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M4 10h16"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M10 5v14"/></svg>Templates ▾
+                            <svg
+                                class="ui-icon"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                height="16"
+                            >
+                                <rect
+                                    fill="none"
+                                    stroke="var(--text-mid)"
+                                    stroke-width="1.9"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    x="4"
+                                    y="5"
+                                    width="16"
+                                    height="14"
+                                />
+                                <path
+                                    fill="none"
+                                    stroke="var(--gold)"
+                                    stroke-width="1.9"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M4 10h16"
+                                />
+                                <path
+                                    fill="none"
+                                    stroke="var(--text-mid)"
+                                    stroke-width="1.9"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M10 5v14"
+                                /></svg
+                            >Templates ▾
                         </button>
                         <div class="tpl-menu" id="tplMenu"></div>
                     </div>
@@ -1376,12 +1562,39 @@
                         onmousedown="event.preventDefault()"
                         onclick="openRewriteModal()"
                         title="Generate 3 AI-powered rewrites with Claude or OpenAI/ChatGPT (requires API key)"
-                        style="background:#0a66c2;color:white;border-color:#004182;font-weight:600;"
+                        style="
+                            background: #0a66c2;
+                            color: white;
+                            border-color: #004182;
+                            font-weight: 600;
+                        "
                     >
-                        <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="var(--gold)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M12 3L13.8 8.2L19 10L13.8 11.8L12 17L10.2 11.8L5 10L10.2 8.2Z"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M18.5 4.5L19 6L20.5 6.5L19 7L18.5 8.5L18 7L16.5 6.5L18 6Z"/></svg>AI Rewrite
+                        <svg
+                            class="ui-icon"
+                            viewBox="0 0 24 24"
+                            width="16"
+                            height="16"
+                        >
+                            <path
+                                fill="none"
+                                stroke="var(--gold)"
+                                stroke-width="1.9"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M12 3L13.8 8.2L19 10L13.8 11.8L12 17L10.2 11.8L5 10L10.2 8.2Z"
+                            />
+                            <path
+                                fill="none"
+                                stroke="var(--text-mid)"
+                                stroke-width="1.9"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M18.5 4.5L19 6L20.5 6.5L19 7L18.5 8.5L18 7L16.5 6.5L18 6Z"
+                            /></svg
+                        >AI Rewrite
                     </button>
                 </div>
-<!-- WYSIWYG Contenteditable Editor -->
+                <!-- WYSIWYG Contenteditable Editor -->
                 <div
                     id="editor"
                     contenteditable="true"
@@ -1430,16 +1643,103 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                 <!-- Action buttons -->
                 <div class="actions">
                     <button class="btn btn-primary" onclick="copyPost()">
-                        <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><rect fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" x="9" y="9" width="11" height="11"/><rect fill="none" stroke="var(--green)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" x="4" y="4" width="11" height="11"/></svg>Copy to LinkedIn
+                        <svg
+                            class="ui-icon"
+                            viewBox="0 0 24 24"
+                            width="16"
+                            height="16"
+                        >
+                            <rect
+                                fill="none"
+                                stroke="var(--text-mid)"
+                                stroke-width="1.9"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                x="9"
+                                y="9"
+                                width="11"
+                                height="11"
+                            />
+                            <rect
+                                fill="none"
+                                stroke="var(--green)"
+                                stroke-width="1.9"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                x="4"
+                                y="4"
+                                width="11"
+                                height="11"
+                            /></svg
+                        >Copy to LinkedIn
                     </button>
                     <button class="btn btn-secondary" onclick="saveDraft()">
-                        <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M5 4h11l3 3v13H5z"/><path fill="none" stroke="var(--gold)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M8 4v6h8V4"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M9 18h6"/></svg>Save Draft
+                        <svg
+                            class="ui-icon"
+                            viewBox="0 0 24 24"
+                            width="16"
+                            height="16"
+                        >
+                            <path
+                                fill="none"
+                                stroke="var(--text-mid)"
+                                stroke-width="1.9"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M5 4h11l3 3v13H5z"
+                            />
+                            <path
+                                fill="none"
+                                stroke="var(--gold)"
+                                stroke-width="1.9"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M8 4v6h8V4"
+                            />
+                            <path
+                                fill="none"
+                                stroke="var(--text-mid)"
+                                stroke-width="1.9"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M9 18h6"
+                            /></svg
+                        >Save Draft
                     </button>
                     <button class="btn btn-ghost" onclick="clearPost()">
-                        <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M4 7h16"/><path fill="none" stroke="var(--red)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M9 7V5h6v2"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M8 7l1 12h6l1-12"/></svg>Clear
+                        <svg
+                            class="ui-icon"
+                            viewBox="0 0 24 24"
+                            width="16"
+                            height="16"
+                        >
+                            <path
+                                fill="none"
+                                stroke="var(--text-mid)"
+                                stroke-width="1.9"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M4 7h16"
+                            />
+                            <path
+                                fill="none"
+                                stroke="var(--red)"
+                                stroke-width="1.9"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M9 7V5h6v2"
+                            />
+                            <path
+                                fill="none"
+                                stroke="var(--text-mid)"
+                                stroke-width="1.9"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M8 7l1 12h6l1-12"
+                            /></svg
+                        >Clear
                     </button>
                 </div>
-
 
                 <!-- AI Suggestions toggle -->
                 <div class="ai-row">
@@ -1459,12 +1759,49 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                     <div id="aiItems"></div>
                 </div>
 
-
                 <!-- Post Rating -->
                 <div class="grader">
                     <div class="grader-head" onclick="toggleGrader()">
                         <div class="grader-title">
-                            <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M4 19.5H20"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M6 16V11"/><path fill="none" stroke="var(--green)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M11 16V7"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M16 16V9"/></svg>Post Rating
+                            <svg
+                                class="ui-icon"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                height="16"
+                            >
+                                <path
+                                    fill="none"
+                                    stroke="var(--text-mid)"
+                                    stroke-width="1.9"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M4 19.5H20"
+                                />
+                                <path
+                                    fill="none"
+                                    stroke="var(--text-mid)"
+                                    stroke-width="1.9"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M6 16V11"
+                                />
+                                <path
+                                    fill="none"
+                                    stroke="var(--green)"
+                                    stroke-width="1.9"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M11 16V7"
+                                />
+                                <path
+                                    fill="none"
+                                    stroke="var(--text-mid)"
+                                    stroke-width="1.9"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M16 16V9"
+                                /></svg
+                            >Post Rating
                             <span class="grade-badge gn" id="gradeBadge"
                                 >—</span
                             >
@@ -1481,31 +1818,138 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                     </div>
                 </div>
 
-
                 <!-- Drafts -->
                 <div class="drafts">
                     <div class="drafts-head" onclick="toggleDrafts()">
                         <div class="drafts-title">
-                            <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M5 4h11l3 3v13H5z"/><path fill="none" stroke="var(--blue)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M8 4v6h8V4"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M9 15h6"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M9 18h4"/></svg>Recent Drafts
+                            <svg
+                                class="ui-icon"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                height="16"
+                            >
+                                <path
+                                    fill="none"
+                                    stroke="var(--text-mid)"
+                                    stroke-width="1.9"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M5 4h11l3 3v13H5z"
+                                />
+                                <path
+                                    fill="none"
+                                    stroke="var(--blue)"
+                                    stroke-width="1.9"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M8 4v6h8V4"
+                                />
+                                <path
+                                    fill="none"
+                                    stroke="var(--text-mid)"
+                                    stroke-width="1.9"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M9 15h6"
+                                />
+                                <path
+                                    fill="none"
+                                    stroke="var(--text-mid)"
+                                    stroke-width="1.9"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M9 18h4"
+                                /></svg
+                            >Recent Drafts
                             <span class="drafts-count" id="draftsCount">0</span>
                         </div>
-                        <span class="drafts-toggle" id="draftsToggle">▼ Show</span>
+                        <span class="drafts-toggle" id="draftsToggle"
+                            >▼ Show</span
+                        >
                     </div>
                     <div class="drafts-body" id="draftsBody">
                         <div class="drafts-actions">
                             <button
                                 class="drafts-btn"
-                                onclick="event.stopPropagation(); exportDrafts()"
+                                onclick="
+                                    event.stopPropagation();
+                                    exportDrafts();
+                                "
                                 title="Save drafts as a JSON file in your LinkedIn folder"
                             >
-                                <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M12 3v11"/><path fill="none" stroke="var(--blue)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M8 10l4 4 4-4"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M5 19h14"/></svg>Export
+                                <svg
+                                    class="ui-icon"
+                                    viewBox="0 0 24 24"
+                                    width="16"
+                                    height="16"
+                                >
+                                    <path
+                                        fill="none"
+                                        stroke="var(--text-mid)"
+                                        stroke-width="1.9"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M12 3v11"
+                                    />
+                                    <path
+                                        fill="none"
+                                        stroke="var(--blue)"
+                                        stroke-width="1.9"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M8 10l4 4 4-4"
+                                    />
+                                    <path
+                                        fill="none"
+                                        stroke="var(--text-mid)"
+                                        stroke-width="1.9"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M5 19h14"
+                                    /></svg
+                                >Export
                             </button>
                             <button
                                 class="drafts-btn"
-                                onclick="event.stopPropagation(); document.getElementById('importInput').click()"
+                                onclick="
+                                    event.stopPropagation();
+                                    document
+                                        .getElementById('importInput')
+                                        .click();
+                                "
                                 title="Load drafts from a JSON file"
                             >
-                                <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M12 14V3"/><path fill="none" stroke="var(--blue)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M8 7l4-4 4 4"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M5 19h14"/></svg>Import
+                                <svg
+                                    class="ui-icon"
+                                    viewBox="0 0 24 24"
+                                    width="16"
+                                    height="16"
+                                >
+                                    <path
+                                        fill="none"
+                                        stroke="var(--text-mid)"
+                                        stroke-width="1.9"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M12 14V3"
+                                    />
+                                    <path
+                                        fill="none"
+                                        stroke="var(--blue)"
+                                        stroke-width="1.9"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M8 7l4-4 4 4"
+                                    />
+                                    <path
+                                        fill="none"
+                                        stroke="var(--text-mid)"
+                                        stroke-width="1.9"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M5 19h14"
+                                    /></svg
+                                >Import
                             </button>
                             <input
                                 type="file"
@@ -1529,7 +1973,33 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
        RIGHT: PREVIEW PANEL
   ══════════════════════════════════════ -->
             <div class="panel">
-                <div class="panel-header"><svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"/><circle fill="none" stroke="var(--green)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" cx="12" cy="12" r="2.8"/></svg>LinkedIn Preview</div>
+                <div class="panel-header">
+                    <svg
+                        class="ui-icon"
+                        viewBox="0 0 24 24"
+                        width="16"
+                        height="16"
+                    >
+                        <path
+                            fill="none"
+                            stroke="var(--text-mid)"
+                            stroke-width="1.9"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z"
+                        />
+                        <circle
+                            fill="none"
+                            stroke="var(--green)"
+                            stroke-width="1.9"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            cx="12"
+                            cy="12"
+                            r="2.8"
+                        /></svg
+                    >LinkedIn Preview
+                </div>
                 <div class="preview-controls">
                     <div class="view-toggle">
                         <button
@@ -1537,14 +2007,73 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                             id="btnDesktop"
                             onclick="setView('desktop')"
                         >
-                            <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><rect fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" x="3" y="4" width="18" height="12"/><path fill="none" stroke="var(--green)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M8 20h8"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M12 16v4"/></svg>Desktop
+                            <svg
+                                class="ui-icon"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                height="16"
+                            >
+                                <rect
+                                    fill="none"
+                                    stroke="var(--text-mid)"
+                                    stroke-width="1.9"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    x="3"
+                                    y="4"
+                                    width="18"
+                                    height="12"
+                                />
+                                <path
+                                    fill="none"
+                                    stroke="var(--green)"
+                                    stroke-width="1.9"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M8 20h8"
+                                />
+                                <path
+                                    fill="none"
+                                    stroke="var(--text-mid)"
+                                    stroke-width="1.9"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M12 16v4"
+                                /></svg
+                            >Desktop
                         </button>
                         <button
                             class="view-btn"
                             id="btnMobile"
                             onclick="setView('mobile')"
                         >
-                            <svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><rect fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" x="7" y="3" width="10" height="18" rx="2"/><path fill="none" stroke="var(--green)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M11 18h2"/></svg>Mobile
+                            <svg
+                                class="ui-icon"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                height="16"
+                            >
+                                <rect
+                                    fill="none"
+                                    stroke="var(--text-mid)"
+                                    stroke-width="1.9"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    x="7"
+                                    y="3"
+                                    width="10"
+                                    height="18"
+                                    rx="2"
+                                />
+                                <path
+                                    fill="none"
+                                    stroke="var(--green)"
+                                    stroke-width="1.9"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M11 18h2"
+                                /></svg
+                            >Mobile
                         </button>
                     </div>
                     <label class="fold-label">
@@ -1706,29 +2235,95 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
         <footer class="site-footer">
             <div class="site-footer-inner">
                 <span class="footer-brand">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="#0a66c2" style="vertical-align:-2px;margin-right:4px"><rect width="20" height="20" x="2" y="2" rx="4"/><path fill="white" d="M8 10h-2v7h2v-7zm-1-3.2a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zm9 3c-1.2 0-2 .6-2.3 1.2V10h-2v7h2v-3.8c0-.9.7-1.7 1.6-1.7.9 0 1.4.8 1.4 1.7V17h2v-4c0-1.7-1-3.2-2.7-3.2z"/></svg>
-                    Built by <a href="https://www.linkedin.com/in/ahmedsidat/" target="_blank" rel="noopener">Ahmed Sidat</a>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="#0a66c2"
+                        style="vertical-align: -2px; margin-right: 4px"
+                    >
+                        <rect width="20" height="20" x="2" y="2" rx="4" />
+                        <path
+                            fill="white"
+                            d="M8 10h-2v7h2v-7zm-1-3.2a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zm9 3c-1.2 0-2 .6-2.3 1.2V10h-2v7h2v-3.8c0-.9.7-1.7 1.6-1.7.9 0 1.4.8 1.4 1.7V17h2v-4c0-1.7-1-3.2-2.7-3.2z"
+                        />
+                    </svg>
+                    Built by
+                    <a
+                        href="https://www.linkedin.com/in/ahmedsidat/"
+                        target="_blank"
+                        rel="noopener"
+                        >Ahmed Sidat</a
+                    >
                 </span>
-                <span class="footer-tagline">Exploring the nexus between leadership, next-gen sales and marketing mastery</span>
-                <span class="footer-copy">© <script>document.write(new Date().getFullYear())</script> Ahmed Sidat. All rights reserved.</span>
+                <span class="footer-tagline"
+                    >Exploring the nexus between leadership, next-gen sales and
+                    marketing mastery</span
+                >
+                <span class="footer-copy"
+                    >©
+                    <script>
+                        document.write(new Date().getFullYear());
+                    </script>
+                    Ahmed Sidat. All rights reserved.</span
+                >
             </div>
         </footer>
 
         <!-- ══════════════════════════════════════
              AI REWRITE MODAL
         ══════════════════════════════════════ -->
-        <div class="ai-rewrite-overlay" id="aiRewriteModal"
-             onclick="if(event.target===this)closeRewriteModal()">
+        <div
+            class="ai-rewrite-overlay"
+            id="aiRewriteModal"
+            onclick="if (event.target === this) closeRewriteModal();"
+        >
             <div class="ai-rewrite-panel">
                 <div class="ai-rewrite-head">
                     <div>
-                        <div class="ai-rewrite-title"><svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="var(--gold)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M12 3L13.8 8.2L19 10L13.8 11.8L12 17L10.2 11.8L5 10L10.2 8.2Z"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M18.5 4.5L19 6L20.5 6.5L19 7L18.5 8.5L18 7L16.5 6.5L18 6Z"/></svg>AI Rewrite Suggestions</div>
+                        <div class="ai-rewrite-title">
+                            <svg
+                                class="ui-icon"
+                                viewBox="0 0 24 24"
+                                width="16"
+                                height="16"
+                            >
+                                <path
+                                    fill="none"
+                                    stroke="var(--gold)"
+                                    stroke-width="1.9"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M12 3L13.8 8.2L19 10L13.8 11.8L12 17L10.2 11.8L5 10L10.2 8.2Z"
+                                />
+                                <path
+                                    fill="none"
+                                    stroke="var(--text-mid)"
+                                    stroke-width="1.9"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M18.5 4.5L19 6L20.5 6.5L19 7L18.5 8.5L18 7L16.5 6.5L18 6Z"
+                                /></svg
+                            >AI Rewrite Suggestions
+                        </div>
                         <div class="ai-rewrite-sub">
-                            Powered by <span id="currentAiProviderLabel">Claude</span> &nbsp;·&nbsp;
-                            <span class="ai-key-link" onclick="openApiKeyModal(null)">change provider / API key</span>
+                            Powered by
+                            <span id="currentAiProviderLabel">Claude</span>
+                            &nbsp;·&nbsp;
+                            <span
+                                class="ai-key-link"
+                                onclick="openApiKeyModal(null)"
+                                >change provider / API key</span
+                            >
                         </div>
                     </div>
-                    <button class="ai-rewrite-close-btn" onclick="closeRewriteModal()">×</button>
+                    <button
+                        class="ai-rewrite-close-btn"
+                        onclick="closeRewriteModal()"
+                    >
+                        ×
+                    </button>
                 </div>
                 <div class="ai-rewrite-body" id="aiRewriteContent"></div>
             </div>
@@ -1737,27 +2332,96 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
         <!-- ══════════════════════════════════════
              API KEY MODAL
         ══════════════════════════════════════ -->
-        <div class="api-key-overlay" id="apiKeyModal"
-             onclick="if(event.target===this)closeApiKeyModal()">
+        <div
+            class="api-key-overlay"
+            id="apiKeyModal"
+            onclick="if (event.target === this) closeApiKeyModal();"
+        >
             <div class="api-key-panel">
-                <div class="api-key-title"><svg class="ui-icon" viewBox="0 0 24 24" width="16" height="16"><circle fill="none" stroke="var(--gold)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" cx="8.5" cy="12" r="3.5"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M12 12h8"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M17 12v-2"/><path fill="none" stroke="var(--text-mid)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" d="M19 12v-1.5"/></svg>AI Provider &amp; API Key</div>
-                <div class="api-key-desc" id="apiKeyDesc">
-                    Choose your provider and enter your API key to enable AI rewrites.
-                    Your key is stored only in this browser.
+                <div class="api-key-title">
+                    <svg
+                        class="ui-icon"
+                        viewBox="0 0 24 24"
+                        width="16"
+                        height="16"
+                    >
+                        <circle
+                            fill="none"
+                            stroke="var(--gold)"
+                            stroke-width="1.9"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            cx="8.5"
+                            cy="12"
+                            r="3.5"
+                        />
+                        <path
+                            fill="none"
+                            stroke="var(--text-mid)"
+                            stroke-width="1.9"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 12h8"
+                        />
+                        <path
+                            fill="none"
+                            stroke="var(--text-mid)"
+                            stroke-width="1.9"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M17 12v-2"
+                        />
+                        <path
+                            fill="none"
+                            stroke="var(--text-mid)"
+                            stroke-width="1.9"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M19 12v-1.5"
+                        /></svg
+                    >AI Provider &amp; API Key
                 </div>
-                <label style="display:block;font-size:12px;font-weight:600;color:#555;margin-bottom:6px;">Provider</label>
-                <select class="api-key-input" id="apiProviderSelect" style="font-family:inherit;"
-                        onchange="updateApiKeyModalCopy()">
+                <div class="api-key-desc" id="apiKeyDesc">
+                    Choose your provider and enter your API key to enable AI
+                    rewrites. Your key is stored only in this browser.
+                </div>
+                <label
+                    style="
+                        display: block;
+                        font-size: 12px;
+                        font-weight: 600;
+                        color: #555;
+                        margin-bottom: 6px;
+                    "
+                    >Provider</label
+                >
+                <select
+                    class="api-key-input"
+                    id="apiProviderSelect"
+                    style="font-family: inherit"
+                    onchange="updateApiKeyModalCopy()"
+                >
                     <option value="claude">Claude</option>
                     <option value="openai">OpenAI / ChatGPT</option>
                 </select>
-                <input type="password" class="api-key-input" id="apiKeyInput"
-                       placeholder="sk-ant-api03-…"
-                       onkeydown="if(event.key==='Enter')saveApiKeyAndClose()" />
+                <input
+                    type="password"
+                    class="api-key-input"
+                    id="apiKeyInput"
+                    placeholder="sk-ant-api03-…"
+                    onkeydown="if (event.key === 'Enter') saveApiKeyAndClose();"
+                />
                 <div class="api-key-help" id="apiKeyHelp"></div>
                 <div class="api-key-actions">
-                    <button class="btn btn-ghost" onclick="closeApiKeyModal()">Cancel</button>
-                    <button class="btn btn-primary" onclick="saveApiKeyAndClose()">Save &amp; Continue</button>
+                    <button class="btn btn-ghost" onclick="closeApiKeyModal()">
+                        Cancel
+                    </button>
+                    <button
+                        class="btn btn-primary"
+                        onclick="saveApiKeyAndClose()"
+                    >
+                        Save &amp; Continue
+                    </button>
                 </div>
             </div>
         </div>
@@ -1924,7 +2588,11 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
 
                 out = out.replace(/~~([\s\S]*?)~~/g, function (_, content) {
                     var idx = segs.length;
-                    segs.push("<s>" + escHtml(content).replace(/\n/g, "<br>") + "</s>");
+                    segs.push(
+                        "<s>" +
+                            escHtml(content).replace(/\n/g, "<br>") +
+                            "</s>",
+                    );
                     return "\x01" + idx + "\x01";
                 });
 
@@ -1963,7 +2631,11 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
 
                 out = out.replace(/~~([\s\S]*?)~~/g, function (_, content) {
                     var idx = segs.length;
-                    segs.push("<s>" + escHtml(content).replace(/\n/g, "<br>") + "</s>");
+                    segs.push(
+                        "<s>" +
+                            escHtml(content).replace(/\n/g, "<br>") +
+                            "</s>",
+                    );
                     return "\x01" + idx + "\x01";
                 });
 
@@ -1987,12 +2659,16 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
             // ══════════════════════════════════════════════════════
             var B_REV = {};
             var I_REV = {};
-            Object.keys(B).forEach(function(k){ B_REV[B[k]] = k; });
-            Object.keys(I).forEach(function(k){ I_REV[I[k]] = k; });
+            Object.keys(B).forEach(function (k) {
+                B_REV[B[k]] = k;
+            });
+            Object.keys(I).forEach(function (k) {
+                I_REV[I[k]] = k;
+            });
 
             function getUnicodeStyle(ch) {
-                if (B_REV[ch] !== undefined) return 'bold';
-                if (I_REV[ch] !== undefined) return 'italic';
+                if (B_REV[ch] !== undefined) return "bold";
+                if (I_REV[ch] !== undefined) return "italic";
                 return null;
             }
 
@@ -2003,12 +2679,14 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
             }
 
             function deUnicode(text) {
-                return Array.from(text || '').map(unicodeToPlain).join('');
+                return Array.from(text || "")
+                    .map(unicodeToPlain)
+                    .join("");
             }
 
             function normalizeUnicodeStyledMarkdown(text) {
-                var chars = Array.from(text || '');
-                var out = '';
+                var chars = Array.from(text || "");
+                var out = "";
                 var i = 0;
 
                 while (i < chars.length) {
@@ -2019,22 +2697,28 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                         continue;
                     }
 
-                    var run = '';
-                    while (i < chars.length && getUnicodeStyle(chars[i]) === style) {
+                    var run = "";
+                    while (
+                        i < chars.length &&
+                        getUnicodeStyle(chars[i]) === style
+                    ) {
                         run += unicodeToPlain(chars[i]);
                         i++;
                     }
 
-                    var leading = (run.match(/^\s+/) || [''])[0];
-                    var trailing = (run.match(/\s+$/) || [''])[0];
-                    var core = run.slice(leading.length, run.length - trailing.length);
+                    var leading = (run.match(/^\s+/) || [""])[0];
+                    var trailing = (run.match(/\s+$/) || [""])[0];
+                    var core = run.slice(
+                        leading.length,
+                        run.length - trailing.length,
+                    );
 
                     if (!core) {
                         out += run;
-                    } else if (style === 'bold') {
-                        out += leading + '**' + core + '**' + trailing;
-                    } else if (style === 'italic') {
-                        out += leading + '_' + core + '_' + trailing;
+                    } else if (style === "bold") {
+                        out += leading + "**" + core + "**" + trailing;
+                    } else if (style === "italic") {
+                        out += leading + "_" + core + "_" + trailing;
                     } else {
                         out += run;
                     }
@@ -2048,50 +2732,50 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
             }
 
             function fmt(type) {
-                var el = document.getElementById('editor');
+                var el = document.getElementById("editor");
                 el.focus();
 
-                if (type === 'bold') {
-                    document.execCommand('bold', false, null);
-                } else if (type === 'italic') {
-                    document.execCommand('italic', false, null);
-                } else if (type === 'strike') {
-                    document.execCommand('strikeThrough', false, null);
-                } else if (type === 'bullet') {
-                    document.execCommand('insertUnorderedList', false, null);
-                } else if (type === 'number') {
-                    document.execCommand('insertOrderedList', false, null);
-                } else if (type === 'space') {
-                    document.execCommand('insertHTML', false, '<br><br>');
+                if (type === "bold") {
+                    document.execCommand("bold", false, null);
+                } else if (type === "italic") {
+                    document.execCommand("italic", false, null);
+                } else if (type === "strike") {
+                    document.execCommand("strikeThrough", false, null);
+                } else if (type === "bullet") {
+                    document.execCommand("insertUnorderedList", false, null);
+                } else if (type === "number") {
+                    document.execCommand("insertOrderedList", false, null);
+                } else if (type === "space") {
+                    document.execCommand("insertHTML", false, "<br><br>");
                 }
                 onChange();
             }
 
             function convertImproperUnicodeFormatting() {
-                var el = document.getElementById('editor');
-                var text = el.innerText || '';
+                var el = document.getElementById("editor");
+                var text = el.innerText || "";
                 if (!text.trim()) {
-                    showToast('Nothing to fix!');
+                    showToast("Nothing to fix!");
                     return;
                 }
                 var fixed = normalizeUnicodeStyledMarkdown(text);
                 if (fixed === text) {
-                    showToast('No improper Unicode formatting found');
+                    showToast("No improper Unicode formatting found");
                     return;
                 }
                 el.innerHTML = markdownToEditorHtml(fixed);
                 onChange();
-                showToast('Unicode formatting converted ✓');
+                showToast("Unicode formatting converted ✓");
             }
 
             function stripFormatting() {
-                var el = document.getElementById('editor');
-                var plain = el.innerText || '';
-                plain = Array.from(plain).map(unicodeToPlain).join('');
-                el.innerHTML = escHtml(plain).replace(/\n/g, '<br>');
+                var el = document.getElementById("editor");
+                var plain = el.innerText || "";
+                plain = Array.from(plain).map(unicodeToPlain).join("");
+                el.innerHTML = escHtml(plain).replace(/\n/g, "<br>");
                 el.focus();
                 onChange();
-                showToast('Formatting stripped ✓');
+                showToast("Formatting stripped ✓");
             }
 
             // ══════════════════════════════════════════════════════
@@ -2160,7 +2844,7 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                             text += "**" + inner2 + "**";
                         } else if (fs === "italic") {
                             text += "_" + inner2 + "_";
-                        } else if (td && td.indexOf('line-through') >= 0) {
+                        } else if (td && td.indexOf("line-through") >= 0) {
                             text += "~~" + inner2 + "~~";
                         } else {
                             text += inner2;
@@ -2174,7 +2858,9 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
 
             // Get the editor's current text as markdown (replaces ed().value)
             function getEditorText() {
-                var md = editorToMarkdownWithUnicodeFix(document.getElementById("editor"));
+                var md = editorToMarkdownWithUnicodeFix(
+                    document.getElementById("editor"),
+                );
                 // Trim leading newline that contenteditable sometimes adds
                 md = md.replace(/^\n/, "");
                 // Replace em dashes with en dashes
@@ -2190,7 +2876,9 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                 var children = node.childNodes;
                 for (var i = 0; i < children.length; i++) {
                     var child = children[i];
-                    var tag = child.nodeName ? child.nodeName.toUpperCase() : "";
+                    var tag = child.nodeName
+                        ? child.nodeName.toUpperCase()
+                        : "";
 
                     var bold =
                         isBold ||
@@ -2208,7 +2896,11 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                         isStrike ||
                         tag === "S" ||
                         tag === "STRIKE" ||
-                        (child.style && child.style.textDecoration && child.style.textDecoration.indexOf('line-through') >= 0);
+                        (child.style &&
+                            child.style.textDecoration &&
+                            child.style.textDecoration.indexOf(
+                                "line-through",
+                            ) >= 0);
 
                     if (child.nodeType === 3) {
                         var t = (child.textContent || "").replace(/—/g, "–");
@@ -2228,7 +2920,9 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                         var lis = child.childNodes;
                         for (var j = 0; j < lis.length; j++) {
                             if (lis[j].nodeName.toUpperCase() === "LI") {
-                                result += "\n• " + domToUnicode(lis[j], bold, italic, strike);
+                                result +=
+                                    "\n• " +
+                                    domToUnicode(lis[j], bold, italic, strike);
                             }
                         }
                     } else if (tag === "OL") {
@@ -2236,7 +2930,16 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                         var n = 1;
                         for (var j2 = 0; j2 < lis2.length; j2++) {
                             if (lis2[j2].nodeName.toUpperCase() === "LI") {
-                                result += "\n" + n++ + ". " + domToUnicode(lis2[j2], bold, italic, strike);
+                                result +=
+                                    "\n" +
+                                    n++ +
+                                    ". " +
+                                    domToUnicode(
+                                        lis2[j2],
+                                        bold,
+                                        italic,
+                                        strike,
+                                    );
                             }
                         }
                     } else if (tag === "LI") {
@@ -2256,12 +2959,15 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                 var children = node.childNodes;
                 for (var i = 0; i < children.length; i++) {
                     var child = children[i];
-                    var tag = child.nodeName ? child.nodeName.toUpperCase() : "";
+                    var tag = child.nodeName
+                        ? child.nodeName.toUpperCase()
+                        : "";
 
                     if (child.nodeType === 3) {
                         result += escHtml(child.textContent);
                     } else if (tag === "STRONG" || tag === "B") {
-                        result += "<strong>" + extractCleanHtml(child) + "</strong>";
+                        result +=
+                            "<strong>" + extractCleanHtml(child) + "</strong>";
                     } else if (tag === "EM" || tag === "I") {
                         result += "<em>" + extractCleanHtml(child) + "</em>";
                     } else if (tag === "S" || tag === "STRIKE") {
@@ -2278,13 +2984,20 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                     } else if (tag === "UL") {
                         var lis = child.querySelectorAll("li");
                         lis.forEach(function (li) {
-                            result += "• " + escHtml(li.innerText || li.textContent) + "<br>";
+                            result +=
+                                "• " +
+                                escHtml(li.innerText || li.textContent) +
+                                "<br>";
                         });
                     } else if (tag === "OL") {
                         var lis2 = child.querySelectorAll("li");
                         var n = 1;
                         lis2.forEach(function (li) {
-                            result += n++ + ". " + escHtml(li.innerText || li.textContent) + "<br>";
+                            result +=
+                                n++ +
+                                ". " +
+                                escHtml(li.innerText || li.textContent) +
+                                "<br>";
                         });
                     } else if (tag === "SPAN") {
                         var fw = child.style && child.style.fontWeight;
@@ -2295,16 +3008,23 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                             result += "<strong>" + inner2 + "</strong>";
                         } else if (fs === "italic") {
                             result += "<em>" + inner2 + "</em>";
-                        } else if (td && td.indexOf('line-through') >= 0) {
+                        } else if (td && td.indexOf("line-through") >= 0) {
                             result += "<s>" + inner2 + "</s>";
                         } else {
                             result += inner2;
                         }
-                    } else if (["H1", "H2", "H3", "H4", "H5", "H6"].indexOf(tag) >= 0) {
-                        result += "<strong>" + extractCleanHtml(child) + "</strong><br>";
+                    } else if (
+                        ["H1", "H2", "H3", "H4", "H5", "H6"].indexOf(tag) >= 0
+                    ) {
+                        result +=
+                            "<strong>" +
+                            extractCleanHtml(child) +
+                            "</strong><br>";
                     } else if (tag === "A") {
                         result += extractCleanHtml(child);
-                    } else if (["STYLE", "SCRIPT", "META", "HEAD"].indexOf(tag) >= 0) {
+                    } else if (
+                        ["STYLE", "SCRIPT", "META", "HEAD"].indexOf(tag) >= 0
+                    ) {
                     } else {
                         result += extractCleanHtml(child);
                     }
@@ -2344,26 +3064,30 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
             // POST GRADER — metric help content for tooltips
             // ══════════════════════════════════════════════════════
             var GRADE_HELP = {
-                'Hook strength': {
+                "Hook strength": {
                     why: 'LinkedIn shows only your first ~210 characters before the "see more" cut-off. If that opening line doesn\'t make someone stop scrolling, the rest of your post never gets read — no matter how good it is.',
                     how: 'Lead with a number, a direct question, or a bold claim. Avoid starting with "I" or "We". Keep it under 120 characters so the full hook lands before the fold. Tension or curiosity gaps work best.',
-                    example: '"3 things I wish someone had told me before my first leadership role:" or "Most sales training is wrong. Here\'s the data that changed my mind:"'
+                    example:
+                        '"3 things I wish someone had told me before my first leadership role:" or "Most sales training is wrong. Here\'s the data that changed my mind:"',
                 },
-                'Readability': {
-                    why: 'LinkedIn\'s algorithm measures dwell time — how long people spend on your post. Dense walls of text cause people to scroll away in seconds. Airy, structured posts keep readers engaged longer, which signals quality to the algorithm and extends reach.',
-                    how: 'Add a blank line between every paragraph. Keep each paragraph to 1–3 sentences. Use bullet points for lists of 3+. Aim for an average line length under 90 characters. Short sentences punch harder than long ones.',
-                    example: 'A 400-word post broken into 6 short paragraphs with one bullet list — each idea gets its own breathing room, making the post feel effortless to read rather than like homework.'
+                Readability: {
+                    why: "LinkedIn's algorithm measures dwell time — how long people spend on your post. Dense walls of text cause people to scroll away in seconds. Airy, structured posts keep readers engaged longer, which signals quality to the algorithm and extends reach.",
+                    how: "Add a blank line between every paragraph. Keep each paragraph to 1–3 sentences. Use bullet points for lists of 3+. Aim for an average line length under 90 characters. Short sentences punch harder than long ones.",
+                    example:
+                        "A 400-word post broken into 6 short paragraphs with one bullet list — each idea gets its own breathing room, making the post feel effortless to read rather than like homework.",
                 },
-                'Leadership signals': {
-                    why: 'LinkedIn\'s algorithm categorises your content by topic to decide whose feed to put it in. Without clear expertise signals, your post gets shown to a generic audience. Strong topic signals mean your post reaches the right people — the ones who actually care about leadership, sales and marketing.',
-                    how: 'Naturally weave in words from your niche: leadership, strategy, mindset, growth, results, pipeline, revenue, coaching, transformation. Don\'t keyword-stuff — use them in context. One strong signal per paragraph is enough.',
-                    example: '"After leading three sales transformations, the pattern I keep seeing is..." signals expertise immediately and tells the algorithm exactly who should see this content.'
+                "Leadership signals": {
+                    why: "LinkedIn's algorithm categorises your content by topic to decide whose feed to put it in. Without clear expertise signals, your post gets shown to a generic audience. Strong topic signals mean your post reaches the right people — the ones who actually care about leadership, sales and marketing.",
+                    how: "Naturally weave in words from your niche: leadership, strategy, mindset, growth, results, pipeline, revenue, coaching, transformation. Don't keyword-stuff — use them in context. One strong signal per paragraph is enough.",
+                    example:
+                        '"After leading three sales transformations, the pattern I keep seeing is..." signals expertise immediately and tells the algorithm exactly who should see this content.',
                 },
-                'Call to action': {
-                    why: 'LinkedIn\'s algorithm weights comments far more heavily than likes or reposts. A post that generates 10 comments can outperform one with 200 likes in terms of reach. Without a clear CTA, most readers scroll on without engaging — even if they found it valuable.',
+                "Call to action": {
+                    why: "LinkedIn's algorithm weights comments far more heavily than likes or reposts. A post that generates 10 comments can outperform one with 200 likes in terms of reach. Without a clear CTA, most readers scroll on without engaging — even if they found it valuable.",
                     how: 'End with a direct, specific question that\'s easy to answer. Make it personal ("what\'s your experience been?") rather than generic ("any thoughts?"). Place the 👇 emoji to visually signal "reply here". Avoid asking two questions at once.',
-                    example: '"What\'s the leadership lesson you wish you\'d learned earlier? 👇" — specific, personal, low-effort to answer, and the emoji creates a visual call-to-action anchor.'
-                }
+                    example:
+                        "\"What's the leadership lesson you wish you'd learned earlier? 👇\" — specific, personal, low-effort to answer, and the emoji creates a visual call-to-action anchor.",
+                },
             };
 
             // ══════════════════════════════════════════════════════
@@ -2530,25 +3254,43 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                         var pct = r.score / r.max;
                         var col = scoreColor(pct);
                         var help = GRADE_HELP[r.label] || {};
-                        var tooltip = help.why ? (
-                            '<div class="metric-tooltip">' +
-                            '<div class="metric-tooltip-title">' + escHtml(r.label) + '</div>' +
-                            '<div>' + escHtml(help.why) + '</div>' +
-                            '<div class="metric-tooltip-section"><div class="metric-tooltip-section-label">How to improve</div>' + escHtml(help.how) + '</div>' +
-                            '<div class="metric-tooltip-section"><div class="metric-tooltip-section-label">What good looks like</div><div class="metric-tooltip-example">' + escHtml(help.example) + '</div></div>' +
-                            '</div>'
-                        ) : '';
+                        var tooltip = help.why
+                            ? '<div class="metric-tooltip">' +
+                              '<div class="metric-tooltip-title">' +
+                              escHtml(r.label) +
+                              "</div>" +
+                              "<div>" +
+                              escHtml(help.why) +
+                              "</div>" +
+                              '<div class="metric-tooltip-section"><div class="metric-tooltip-section-label">How to improve</div>' +
+                              escHtml(help.how) +
+                              "</div>" +
+                              '<div class="metric-tooltip-section"><div class="metric-tooltip-section-label">What good looks like</div><div class="metric-tooltip-example">' +
+                              escHtml(help.example) +
+                              "</div></div>" +
+                              "</div>"
+                            : "";
                         return (
                             '<div class="grade-row">' +
                             '<span class="grade-lbl">' +
                             escHtml(r.label) +
-                            (tooltip ? '<span class="metric-info"><span class="metric-info-icon">i</span>' + tooltip + '</span>' : '') +
+                            (tooltip
+                                ? '<span class="metric-info"><span class="metric-info-icon">i</span>' +
+                                  tooltip +
+                                  "</span>"
+                                : "") +
                             "</span>" +
                             '<div class="grade-bar-wrap"><div class="grade-bar-fill" style="width:' +
-                            pct * 100 + "%;background:" + col +
+                            pct * 100 +
+                            "%;background:" +
+                            col +
                             '"></div></div>' +
-                            '<span class="grade-score" style="color:' + col + '">' +
-                            r.score + "/" + r.max +
+                            '<span class="grade-score" style="color:' +
+                            col +
+                            '">' +
+                            r.score +
+                            "/" +
+                            r.max +
                             "</span>" +
                             "</div>"
                         );
@@ -2559,19 +3301,23 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
             }
 
             function toggleGrader(forceState) {
-                graderOpen = typeof forceState === "boolean" ? forceState : !graderOpen;
+                graderOpen =
+                    typeof forceState === "boolean" ? forceState : !graderOpen;
                 var body = document.getElementById("graderBody");
                 var toggle = document.getElementById("graderToggle");
                 if (body) body.style.display = graderOpen ? "block" : "none";
-                if (toggle) toggle.textContent = graderOpen ? "▲ Hide" : "▼ Show";
+                if (toggle)
+                    toggle.textContent = graderOpen ? "▲ Hide" : "▼ Show";
             }
 
             function toggleDrafts(forceState) {
-                draftsOpen = typeof forceState === "boolean" ? forceState : !draftsOpen;
+                draftsOpen =
+                    typeof forceState === "boolean" ? forceState : !draftsOpen;
                 var body = document.getElementById("draftsBody");
                 var toggle = document.getElementById("draftsToggle");
                 if (body) body.style.display = draftsOpen ? "block" : "none";
-                if (toggle) toggle.textContent = draftsOpen ? "▲ Hide" : "▼ Show";
+                if (toggle)
+                    toggle.textContent = draftsOpen ? "▲ Hide" : "▼ Show";
             }
 
             // ══════════════════════════════════════════════════════
@@ -2801,7 +3547,7 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                             result += "<strong>" + inner2 + "</strong>";
                         } else if (fs === "italic") {
                             result += "<em>" + inner2 + "</em>";
-                        } else if (td && td.indexOf('line-through') >= 0) {
+                        } else if (td && td.indexOf("line-through") >= 0) {
                             result += "<s>" + inner2 + "</s>";
                         } else {
                             result += inner2;
@@ -2963,10 +3709,13 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                         localStorage.removeItem(AUTOSAVE_KEY);
                         return;
                     }
-                    localStorage.setItem(AUTOSAVE_KEY, JSON.stringify({
-                        text: text,
-                        savedAt: Date.now()
-                    }));
+                    localStorage.setItem(
+                        AUTOSAVE_KEY,
+                        JSON.stringify({
+                            text: text,
+                            savedAt: Date.now(),
+                        }),
+                    );
                 } catch (e) {}
             }
 
@@ -2981,7 +3730,8 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
                     if (!stored) return;
                     var parsed = JSON.parse(stored);
                     if (!parsed || !parsed.text || !parsed.text.trim()) return;
-                    document.getElementById("editor").innerHTML = markdownToEditorHtml(parsed.text);
+                    document.getElementById("editor").innerHTML =
+                        markdownToEditorHtml(parsed.text);
                 } catch (e) {}
             }
 
@@ -3027,7 +3777,8 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
 
             function renderDrafts() {
                 var el = document.getElementById("draftList");
-                document.getElementById("draftsCount").textContent = drafts.length;
+                document.getElementById("draftsCount").textContent =
+                    drafts.length;
                 if (!drafts.length) {
                     el.innerHTML =
                         '<span class="drafts-empty">No drafts yet — click Save Draft to store one.</span>';
@@ -3288,50 +4039,61 @@ Tip: Your very first line is your hook — it's the only thing visible before 's
             // OpenAI can also be called directly here, but exposing an OpenAI API key
             // client-side is not recommended for production.
             // ══════════════════════════════════════════════════════
-            var AI_PROVIDER_STORAGE = 'li_formatter_ai_provider_v1';
+            var AI_PROVIDER_STORAGE = "li_formatter_ai_provider_v1";
             var AI_KEY_STORAGE = {
-                claude: 'li_formatter_claude_key_v1',
-                openai: 'li_formatter_openai_key_v1'
+                claude: "li_formatter_claude_key_v1",
+                openai: "li_formatter_openai_key_v1",
             };
             var AI_PROVIDER_CONFIG = {
                 claude: {
-                    label: 'Claude',
-                    placeholder: 'sk-ant-api03-…',
-                    helpHtml: 'Get a key at <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a>. Claude supports direct browser calls in this standalone HTML file.',
-                    loadingText: 'Generating 3 rewrites with Claude…'
+                    label: "Claude",
+                    placeholder: "sk-ant-api03-…",
+                    helpHtml:
+                        'Get a key at <a href="https://console.anthropic.com" target="_blank" rel="noopener">console.anthropic.com</a>. Claude supports direct browser calls in this standalone HTML file.',
+                    loadingText: "Generating 3 rewrites with Claude…",
                 },
                 openai: {
-                    label: 'OpenAI / ChatGPT',
-                    placeholder: 'sk-proj-… or sk-…',
-                    helpHtml: 'Create a key in the OpenAI Platform. Note: OpenAI advises against exposing API keys in client-side browser code, so a small server proxy is safer for production use.',
-                    loadingText: 'Generating 3 rewrites with OpenAI…'
-                }
+                    label: "OpenAI / ChatGPT",
+                    placeholder: "sk-proj-… or sk-…",
+                    helpHtml:
+                        "Create a key in the OpenAI Platform. Note: OpenAI advises against exposing API keys in client-side browser code, so a small server proxy is safer for production use.",
+                    loadingText: "Generating 3 rewrites with OpenAI…",
+                },
             };
 
             function getStoredProvider() {
                 try {
-                    var provider = localStorage.getItem(AI_PROVIDER_STORAGE) || 'claude';
-                    return AI_PROVIDER_CONFIG[provider] ? provider : 'claude';
+                    var provider =
+                        localStorage.getItem(AI_PROVIDER_STORAGE) || "claude";
+                    return AI_PROVIDER_CONFIG[provider] ? provider : "claude";
                 } catch (e) {
-                    return 'claude';
+                    return "claude";
                 }
             }
 
             function setStoredProvider(provider) {
-                try { localStorage.setItem(AI_PROVIDER_STORAGE, provider); } catch (e) {}
+                try {
+                    localStorage.setItem(AI_PROVIDER_STORAGE, provider);
+                } catch (e) {}
             }
 
             function getStoredApiKey(provider) {
                 provider = provider || getStoredProvider();
                 var storageKey = AI_KEY_STORAGE[provider];
-                if (!storageKey) return '';
-                try { return localStorage.getItem(storageKey) || ''; } catch(e) { return ''; }
+                if (!storageKey) return "";
+                try {
+                    return localStorage.getItem(storageKey) || "";
+                } catch (e) {
+                    return "";
+                }
             }
 
             function setStoredApiKey(provider, key) {
                 var storageKey = AI_KEY_STORAGE[provider];
                 if (!storageKey) return;
-                try { localStorage.setItem(storageKey, key); } catch (e) {}
+                try {
+                    localStorage.setItem(storageKey, key);
+                } catch (e) {}
             }
 
             function getRewritePrompt(postText) {
@@ -3354,29 +4116,37 @@ ${postText}`;
 
             function updateRewriteProviderLabel() {
                 var provider = getStoredProvider();
-                var labelEl = document.getElementById('currentAiProviderLabel');
-                if (labelEl) labelEl.textContent = AI_PROVIDER_CONFIG[provider].label;
+                var labelEl = document.getElementById("currentAiProviderLabel");
+                if (labelEl)
+                    labelEl.textContent = AI_PROVIDER_CONFIG[provider].label;
             }
 
             function openRewriteModal() {
                 var provider = getStoredProvider();
                 var key = getStoredApiKey(provider);
                 if (!key) {
-                    openApiKeyModal(function() { openRewriteModal(); });
+                    openApiKeyModal(function () {
+                        openRewriteModal();
+                    });
                     return;
                 }
                 var text = getEditorText().trim();
-                if (!text) { showToast('Write something first!'); return; }
+                if (!text) {
+                    showToast("Write something first!");
+                    return;
+                }
 
                 updateRewriteProviderLabel();
-                document.getElementById('aiRewriteModal').classList.add('open');
-                document.getElementById('aiRewriteContent').innerHTML =
+                document.getElementById("aiRewriteModal").classList.add("open");
+                document.getElementById("aiRewriteContent").innerHTML =
                     '<div class="ai-rewrite-loading">' +
                     '<div class="spinner"></div>' +
-                    '<div>' + escHtml(AI_PROVIDER_CONFIG[provider].loadingText) + '</div>' +
-                    '</div>';
+                    "<div>" +
+                    escHtml(AI_PROVIDER_CONFIG[provider].loadingText) +
+                    "</div>" +
+                    "</div>";
 
-                if (provider === 'openai') {
+                if (provider === "openai") {
                     callOpenAIForRewrites(text, key);
                 } else {
                     callClaudeForRewrites(text, key);
@@ -3384,176 +4154,228 @@ ${postText}`;
             }
 
             function closeRewriteModal() {
-                document.getElementById('aiRewriteModal').classList.remove('open');
+                document
+                    .getElementById("aiRewriteModal")
+                    .classList.remove("open");
             }
 
             function parseVariantsJson(raw) {
-                raw = (raw || '').trim();
-                raw = raw.replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/,'').trim();
+                raw = (raw || "").trim();
+                raw = raw
+                    .replace(/^```json\s*/i, "")
+                    .replace(/^```\s*/i, "")
+                    .replace(/```\s*$/, "")
+                    .trim();
                 var parsed = JSON.parse(raw);
-                if (!parsed.variants || !parsed.variants.length) throw new Error('Unexpected response format.');
+                if (!parsed.variants || !parsed.variants.length)
+                    throw new Error("Unexpected response format.");
                 return parsed.variants;
             }
 
             function handleApiErrorResponse(res) {
-                return res.json().then(function(err) {
-                    var msg = (err.error && err.error.message) ? err.error.message : 'API error ' + res.status;
-                    throw new Error(msg);
-                }).catch(function() {
-                    throw new Error('API error ' + res.status);
-                });
+                return res
+                    .json()
+                    .then(function (err) {
+                        var msg =
+                            err.error && err.error.message
+                                ? err.error.message
+                                : "API error " + res.status;
+                        throw new Error(msg);
+                    })
+                    .catch(function () {
+                        throw new Error("API error " + res.status);
+                    });
             }
 
             function handleRewriteError(err) {
                 var provider = getStoredProvider();
-                document.getElementById('aiRewriteContent').innerHTML =
+                document.getElementById("aiRewriteContent").innerHTML =
                     '<div class="ai-rewrite-error">' +
-                    '⚠ ' + escHtml(err.message || 'Unknown error') +
+                    "⚠ " +
+                    escHtml(err.message || "Unknown error") +
                     '<div class="err-actions">' +
                     '<button class="btn btn-secondary" onclick="openRewriteModal()">Try again</button>' +
                     '<button class="btn btn-ghost" onclick="openApiKeyModal(null)">Change provider / API key</button>' +
-                    '</div>' +
-                    (provider === 'openai'
+                    "</div>" +
+                    (provider === "openai"
                         ? '<div style="margin-top:12px;font-size:12px;color:#666;">For production, it is safer to call OpenAI through your own backend or edge function instead of storing the key in the browser.</div>'
-                        : '') +
-                    '</div>';
+                        : "") +
+                    "</div>";
             }
 
             function callClaudeForRewrites(postText, apiKey) {
                 var prompt = getRewritePrompt(postText);
 
-                fetch('https://api.anthropic.com/v1/messages', {
-                    method: 'POST',
+                fetch("https://api.anthropic.com/v1/messages", {
+                    method: "POST",
                     headers: {
-                        'content-type': 'application/json',
-                        'x-api-key': apiKey,
-                        'anthropic-version': '2023-06-01',
-                        'anthropic-dangerous-direct-browser-access': 'true'
+                        "content-type": "application/json",
+                        "x-api-key": apiKey,
+                        "anthropic-version": "2023-06-01",
+                        "anthropic-dangerous-direct-browser-access": "true",
                     },
                     body: JSON.stringify({
-                        model: 'claude-sonnet-4-6',
+                        model: "claude-sonnet-4-6",
                         max_tokens: 3000,
-                        messages: [{ role: 'user', content: prompt }]
+                        messages: [{ role: "user", content: prompt }],
+                    }),
+                })
+                    .then(function (res) {
+                        if (!res.ok) return handleApiErrorResponse(res);
+                        return res.json();
                     })
-                })
-                .then(function(res) {
-                    if (!res.ok) return handleApiErrorResponse(res);
-                    return res.json();
-                })
-                .then(function(data) {
-                    var raw = data && data.content && data.content[0] ? data.content[0].text : '';
-                    renderRewriteVariants(parseVariantsJson(raw));
-                })
-                .catch(handleRewriteError);
+                    .then(function (data) {
+                        var raw =
+                            data && data.content && data.content[0]
+                                ? data.content[0].text
+                                : "";
+                        renderRewriteVariants(parseVariantsJson(raw));
+                    })
+                    .catch(handleRewriteError);
             }
 
             function callOpenAIForRewrites(postText, apiKey) {
                 var prompt = getRewritePrompt(postText);
 
-                fetch('https://api.openai.com/v1/chat/completions', {
-                    method: 'POST',
+                fetch("https://api.openai.com/v1/chat/completions", {
+                    method: "POST",
                     headers: {
-                        'content-type': 'application/json',
-                        'authorization': 'Bearer ' + apiKey
+                        "content-type": "application/json",
+                        authorization: "Bearer " + apiKey,
                     },
                     body: JSON.stringify({
-                        model: 'gpt-4.1-mini',
+                        model: "gpt-4.1-mini",
                         temperature: 0.9,
-                        response_format: { type: 'json_object' },
+                        response_format: { type: "json_object" },
                         messages: [
                             {
-                                role: 'system',
-                                content: 'You rewrite LinkedIn posts and must return valid JSON only.'
+                                role: "system",
+                                content:
+                                    "You rewrite LinkedIn posts and must return valid JSON only.",
                             },
                             {
-                                role: 'user',
-                                content: prompt
-                            }
-                        ]
+                                role: "user",
+                                content: prompt,
+                            },
+                        ],
+                    }),
+                })
+                    .then(function (res) {
+                        if (!res.ok) return handleApiErrorResponse(res);
+                        return res.json();
                     })
-                })
-                .then(function(res) {
-                    if (!res.ok) return handleApiErrorResponse(res);
-                    return res.json();
-                })
-                .then(function(data) {
-                    var raw = data && data.choices && data.choices[0] && data.choices[0].message ? data.choices[0].message.content : '';
-                    renderRewriteVariants(parseVariantsJson(raw));
-                })
-                .catch(handleRewriteError);
+                    .then(function (data) {
+                        var raw =
+                            data &&
+                            data.choices &&
+                            data.choices[0] &&
+                            data.choices[0].message
+                                ? data.choices[0].message.content
+                                : "";
+                        renderRewriteVariants(parseVariantsJson(raw));
+                    })
+                    .catch(handleRewriteError);
             }
 
             var _aiVariants = [];
-            var VARIANT_ICONS = { 'Storytelling': '🗣', 'Bold Take': '⚡', 'Data-Led': '📊' };
+            var VARIANT_ICONS = {
+                Storytelling: "🗣",
+                "Bold Take": "⚡",
+                "Data-Led": "📊",
+            };
 
             function renderRewriteVariants(variants) {
                 _aiVariants = variants;
                 var html = '<div class="ai-variants-grid">';
-                variants.forEach(function(v, i) {
-                    var icon = VARIANT_ICONS[v.style] || '✨';
+                variants.forEach(function (v, i) {
+                    var icon = VARIANT_ICONS[v.style] || "✨";
                     var previewHtml = escHtml(v.post)
-                        .replace(/\*\*([\s\S]*?)\*\*/g, '<strong>$1</strong>')
-                        .replace(/~~([\s\S]*?)~~/g, '<s>$1</s>')
-                        .replace(/_([^_\n]+)_/g, '<em>$1</em>')
-                        .replace(/\n/g, '<br>');
-                    html += '<div class="ai-variant-card">' +
-                        '<div>' +
-                        '<div class="ai-variant-badge">' + icon + ' ' + escHtml(v.style) + '</div>' +
-                        '<div class="ai-variant-angle">' + escHtml(v.angle) + '</div>' +
-                        '</div>' +
-                        '<div class="ai-variant-body">' + previewHtml + '</div>' +
-                        '<button class="btn btn-primary ai-variant-apply" onclick="applyRewrite(' + i + ')">Apply this version</button>' +
-                        '</div>';
+                        .replace(/\*\*([\s\S]*?)\*\*/g, "<strong>$1</strong>")
+                        .replace(/~~([\s\S]*?)~~/g, "<s>$1</s>")
+                        .replace(/_([^_\n]+)_/g, "<em>$1</em>")
+                        .replace(/\n/g, "<br>");
+                    html +=
+                        '<div class="ai-variant-card">' +
+                        "<div>" +
+                        '<div class="ai-variant-badge">' +
+                        icon +
+                        " " +
+                        escHtml(v.style) +
+                        "</div>" +
+                        '<div class="ai-variant-angle">' +
+                        escHtml(v.angle) +
+                        "</div>" +
+                        "</div>" +
+                        '<div class="ai-variant-body">' +
+                        previewHtml +
+                        "</div>" +
+                        '<button class="btn btn-primary ai-variant-apply" onclick="applyRewrite(' +
+                        i +
+                        ')">Apply this version</button>' +
+                        "</div>";
                 });
-                html += '</div>';
-                document.getElementById('aiRewriteContent').innerHTML = html;
+                html += "</div>";
+                document.getElementById("aiRewriteContent").innerHTML = html;
             }
 
             function applyRewrite(idx) {
                 var v = _aiVariants[idx];
                 if (!v) return;
-                var el = document.getElementById('editor');
+                var el = document.getElementById("editor");
                 el.innerHTML = markdownToEditorHtml(v.post);
                 onChange();
                 closeRewriteModal();
-                showToast('Rewrite applied ✓ — review and tweak before posting');
+                showToast(
+                    "Rewrite applied ✓ — review and tweak before posting",
+                );
             }
 
             var _apiKeyCallback = null;
 
             function updateApiKeyModalCopy() {
-                var provider = document.getElementById('apiProviderSelect').value || 'claude';
+                var provider =
+                    document.getElementById("apiProviderSelect").value ||
+                    "claude";
                 var cfg = AI_PROVIDER_CONFIG[provider];
-                document.getElementById('apiKeyInput').placeholder = cfg.placeholder;
-                document.getElementById('apiKeyInput').value = getStoredApiKey(provider);
-                document.getElementById('apiKeyDesc').innerHTML =
-                    'Choose your provider and enter your API key to enable AI rewrites. Your key is stored only in this browser.';
-                document.getElementById('apiKeyHelp').innerHTML = cfg.helpHtml;
+                document.getElementById("apiKeyInput").placeholder =
+                    cfg.placeholder;
+                document.getElementById("apiKeyInput").value =
+                    getStoredApiKey(provider);
+                document.getElementById("apiKeyDesc").innerHTML =
+                    "Choose your provider and enter your API key to enable AI rewrites. Your key is stored only in this browser.";
+                document.getElementById("apiKeyHelp").innerHTML = cfg.helpHtml;
             }
 
             function openApiKeyModal(callback) {
                 var provider = getStoredProvider();
-                document.getElementById('apiProviderSelect').value = provider;
+                document.getElementById("apiProviderSelect").value = provider;
                 _apiKeyCallback = callback;
                 updateApiKeyModalCopy();
-                document.getElementById('apiKeyModal').classList.add('open');
-                setTimeout(function() { document.getElementById('apiKeyInput').focus(); }, 50);
+                document.getElementById("apiKeyModal").classList.add("open");
+                setTimeout(function () {
+                    document.getElementById("apiKeyInput").focus();
+                }, 50);
             }
 
             function closeApiKeyModal() {
-                document.getElementById('apiKeyModal').classList.remove('open');
+                document.getElementById("apiKeyModal").classList.remove("open");
                 _apiKeyCallback = null;
             }
 
             function saveApiKeyAndClose() {
-                var provider = document.getElementById('apiProviderSelect').value || 'claude';
-                var key = document.getElementById('apiKeyInput').value.trim();
-                if (!key) { showToast('Please enter a key first'); return; }
+                var provider =
+                    document.getElementById("apiProviderSelect").value ||
+                    "claude";
+                var key = document.getElementById("apiKeyInput").value.trim();
+                if (!key) {
+                    showToast("Please enter a key first");
+                    return;
+                }
                 setStoredProvider(provider);
                 setStoredApiKey(provider, key);
                 updateRewriteProviderLabel();
-                document.getElementById('apiKeyModal').classList.remove('open');
-                showToast(AI_PROVIDER_CONFIG[provider].label + ' key saved ✓');
+                document.getElementById("apiKeyModal").classList.remove("open");
+                showToast(AI_PROVIDER_CONFIG[provider].label + " key saved ✓");
                 if (_apiKeyCallback) {
                     var cb = _apiKeyCallback;
                     _apiKeyCallback = null;
@@ -3563,8 +4385,8 @@ ${postText}`;
 
             // ── INIT ──
             function bindAccordionHeads() {
-                var graderHead = document.querySelector('.grader-head');
-                var draftsHead = document.querySelector('.drafts-head');
+                var graderHead = document.querySelector(".grader-head");
+                var draftsHead = document.querySelector(".drafts-head");
                 if (graderHead) {
                     graderHead.onclick = function (e) {
                         e.preventDefault();
@@ -3581,19 +4403,22 @@ ${postText}`;
 
             function rehydrateVisibleMarkdownInEditor() {
                 try {
-                    var el = document.getElementById('editor');
+                    var el = document.getElementById("editor");
                     if (!el) return;
-                    var html = el.innerHTML || '';
-                    var text = el.innerText || '';
-                    var hasRichFormatting = /<(strong|b|em|i|s|strike)/i.test(html);
-                    var looksLikeMarkdown = /(\*\*[^\n]+\*\*)|(~~[^\n]+~~)|(_[^_\n]+_)/.test(text);
+                    var html = el.innerHTML || "";
+                    var text = el.innerText || "";
+                    var hasRichFormatting = /<(strong|b|em|i|s|strike)/i.test(
+                        html,
+                    );
+                    var looksLikeMarkdown =
+                        /(\*\*[^\n]+\*\*)|(~~[^\n]+~~)|(_[^_\n]+_)/.test(text);
                     if (!hasRichFormatting && looksLikeMarkdown) {
                         el.innerHTML = markdownToEditorHtml(text);
                     }
                 } catch (e) {}
             }
 
-            window.addEventListener('pageshow', function () {
+            window.addEventListener("pageshow", function () {
                 rehydrateVisibleMarkdownInEditor();
                 onChange();
             });
